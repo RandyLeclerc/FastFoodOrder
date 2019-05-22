@@ -1,0 +1,39 @@
+﻿@model Shared.BTO.MealTypeBTO
+
+@{
+    ViewData["Title"] = "CreateMealType";
+}
+
+<h1>Create a new meal type</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateMealType">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @*<label asp-for="Id" class="control-label"></label>*@
+                <input asp-for="Id" class="form-control" value="0" hidden="hidden" />
+                @*<span asp-validation-for="Id" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="RestaurantId" class="control-label"></label>*@
+                <input asp-for="Restaurant.Id" class="form-control" hidden="hidden"/>
+                @*<span asp-validation-for="RestaurantId" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create this meal type" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-sm btn-secondary" asp-action="GetAllMealTypesByRestoId" asp-route-id="@Model.Restaurant.Id">Back to List</a>
+</div>
+

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Shared.BTO.CuisineBTO>
+
+
+<h1>Our cuisines</h1>
+<p>
+    <a class="btn btn-sm btn-primary" asp-action="CreateCuisine">Create New Cuisine</a>
+</p>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No Cuisine found</td></tr>
+}
+else
+{
+
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <th>Id</th>
+            <th>Cuisine Name</th>
+            <th>Action</th>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>
+                    <form asp-action="DeleteCuisine" asp-route-id="@item.Id" method="post">
+                        @*<a class="btn btn-sm btn-primary" asp-action="RestaurantDetails" asp-route-id="@item.Id">See the details</a>*@
+                        <a class="btn btn-sm btn-primary" asp-action="EditCuisine" asp-route-id="@item.Id">Edit</a>
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Do you really want to delete this cuisine?');">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+
+    </table>
+}

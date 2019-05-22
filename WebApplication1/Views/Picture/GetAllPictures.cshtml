@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Shared.BTO.PictureBTO>
+
+@{
+    ViewData["Title"] = "GetAllPictures";
+}
+
+<h1>All Pictures</h1>
+
+@*<p>
+        <a asp-action="Create">Add a new for a restaurant</a>
+    </p>*@
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No picture found</td></tr>
+}
+else
+{
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Url)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsProfilePicture)
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Resto.Id)*@
+                    Resto Id : 
+                </th>
+                <th>
+                    Actions :
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    <img src="@Html.DisplayFor(modelItem => item.Url)" class="img-thumbnail" alt="" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsProfilePicture)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-controller="Restaurant" asp-action="RestaurantDetails" asp-route-id="@item.RestaurantId">
+                        @Html.DisplayFor(modelItem => item.RestaurantId)
+                    </a>
+                </td>
+                <td>
+                    <form asp-action="DeletePicture" asp-route-id="@item.Id" method="post">
+                        @*<a class="btn btn-sm btn-primary" asp-action="PictureDetails" asp-route-id="@item.Id">See the details</a>*@
+                        <a class="btn btn-sm btn-primary" asp-action="EditPicture" asp-route-id="@item.Id">Edit</a>
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Do you really want to delete this picture?');">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}

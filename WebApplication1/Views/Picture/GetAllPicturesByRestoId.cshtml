@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Shared.BTO.PictureBTO>
+
+@{
+    ViewData["Title"] = "GetAllPicturesByRestoId";
+
+}
+
+<h1>GetAllPicturesByRestoId</h1>
+
+<p>
+    <a class="btn btn-sm btn-primary" asp-action="CreatePicture" asp-route-id="@ViewData["RestoId"]" >Create New</a>
+</p>
+<table class="tabletable-condensed table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Url)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsProfilePicture)
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.Url)" class="img-thumbnail" alt="" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsProfilePicture)
+            </td>
+            <td>
+                <form asp-action="DeletePicture" asp-route-id="@item.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-action="EditPicture" asp-route-id="@item.Id">Edit</a>
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Do you really want to delete this picture?');">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

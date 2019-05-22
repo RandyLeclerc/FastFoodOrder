@@ -1,0 +1,175 @@
+﻿@using System.Security.Claims
+@using System.Threading.Tasks
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@using DAL.User.Entities;
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject IAuthorizationService AuthorizationService
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApplication1</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+    </environment>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplication1</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Basket" asp-action="GetBasketsByUserId">History</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="GetAllRestaurants">Restaurants</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrators"))
+                            {
+                                @await Component.InvokeAsync("AdminMenu")
+                            }
+                        </li>
+                        <li class="nav-item dropdown">
+                            @if (SignInManager.IsSignedIn(User) && (User.IsInRole("RestaurantManager") || User.IsInRole("Administrators")))
+                            {
+                                @await Component.InvokeAsync("RestaurantMenu")
+                            }
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            @*<div class="dropdown">
+            <div id="myDropdown" class="dropdown-content">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>*@
+        <div id="myDropdown" class="navbar" role="navigation">
+            <button id="loadPartialView" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Your basket :
+                <span class="glyphicon glyphicon-play"></span>
+            </button>
+            <div id="Display" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item"  href="#">@Html.PartialAsync("/Views/Basket/Index.cshtml")</a>
+            </div>
+
+
+
+            @*<div class="dropdown-menu">
+            <a class="dropdown-item" id="Display">@Html.PartialAsync("/Views/Basket/Index.cshtml")</a>
+
+        </div>*@
+
+
+            @*<button onclick="myFunction()" class="dropbtn">Dropdown</button>*@
+            @*<a class="navbar-brand" href="#"></a>*@
+            @*@Html.ActionLink("Summary", "Basket")*@
+        </div>
+            @*<div id="Display">
+            </div>*@
+
+</nav>
+    </header>
+    <div class="container">
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2019 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+    </environment>
+    <script src="~/js/site.js" asp-append-version="true">
+
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        //function myFunction() {
+        //    document.getElementById("myDropdown").classList.toggle("show");
+        //}
+
+        //// Close the dropdown if the user clicks outside of it
+        //window.onclick = function (event) {
+        //if (!event.target.matches('.dropbtn')) {
+        //    var dropdowns = document.getElementsByClassName("dropdown-content");
+        //    var i;
+        //    for (i = 0; i < dropdowns.length; i++) {
+        //        var openDropdown = dropdowns[i];
+        //        if (openDropdown.classList.contains('show')) {
+        //            openDropdown.classList.remove('show');
+        //        }
+        //    }
+        //}
+    
+    </script>
+    <script>
+        
+        $(function () {
+            $("#loadPartialView").click(function () {
+                $.get('@Url.Action("Index", "Basket")', {}, function (response) {
+                    $("#Display").html(response);
+                });
+            });
+        }
+	    );
+    </script>
+
+    @RenderSection("Scripts", required: false)
+
+
+</body>
+
+</html>

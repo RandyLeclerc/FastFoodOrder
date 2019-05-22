@@ -1,0 +1,129 @@
+﻿@using System.Reflection
+@*@model Tuple<Shared.BTO.RestoBTO, Shared.BTO.PictureBTO>*@
+@model Shared.BTO.RestoBTO
+
+
+@{
+    ViewData["Title"] = "CreateRestaurant";
+
+}
+
+<h1>Create a new restaurant</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateRestaurant" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+            <label asp-for="Id" class="control-label"></label>
+            <input asp-for="Id" class="form-control" />
+            <span asp-validation-for="Id" class="text-danger"></span>
+        </div>*@
+            @if (User.IsInRole("Administrators"))
+            {
+                <div class="form-group">
+                    <label asp-for="UserManagerId" class="control-label"></label>
+                    <input asp-for="UserManagerId" class="form-control" />
+                    <span asp-validation-for="UserManagerId" class="text-danger"></span>
+                </div>
+            }
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShortDescription" class="control-label"></label>
+                <input asp-for="ShortDescription" class="form-control" />
+                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LongDescription" class="control-label"></label>
+                <input asp-for="LongDescription" class="form-control" />
+                <span asp-validation-for="LongDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <fieldset class="form-group">
+                <div class="custom-checkbox">
+                    <ul>
+                        @for (var i = 0; i < Model.Cuisines.Count(); i++)
+                        {
+                            <li>
+                                @*@Html.EditorFor(model => @Model.Cuisines[i])*@
+                                <input asp-for="@Model.Cuisines[i].Selected" checked="@Model.Cuisines[i].Selected" type="checkbox" />
+                                <label asp-for="@Model.Cuisines[i].Selected">@Model.Cuisines[i].Name</label>
+                                <input type="hidden" asp-for="@Model.Cuisines[i].Id" />
+                                <input type="hidden" asp-for="@Model.Cuisines[i].Name" />
+                                <input type="hidden" asp-for="@Model.Cuisines[i].Selected" />
+                            </li>
+                        }
+                    </ul>
+
+                </div>
+            </fieldset>
+
+            @*<div class="form-group">
+            <label class="col-md-2 control-label">Restaurant Picture</label>
+            <div class="col-md-10">
+                <input class="form-control" type="file" name="pic" accept="image/*" />
+            </div>
+        </div>*@
+
+            @*<div class="form-group">
+                <label asp-for="Pictures[0].Url" class="control-label">Url of your Picture : </label>
+                <input asp-for="Pictures[0].Url" class="form-control" />
+                <span asp-validation-for="Pictures[0].Url" class="text-danger"></span>
+            </div>*@
+            @*<input asp-for="MealTypes" class="form-control" />
+
+            MealTypes
+            @await Component.InvokeAsync("MealType", new { RestoBTO = Model })*@
+
+
+            @*<div class="custom-checkbox">
+            <label asp-for="Pictures[0].IsProfilePicture" class="control-label"></label>
+            <input asp-for="Pictures[0].IsProfilePicture" class="form-control" />
+            <span asp-validation-for="Pictures[0].IsProfilePicture" class="text-danger"></span>
+        </div>*@
+
+
+
+            @*<div class="form-group">
+            <label class="control-label">Url : </label>
+            <select asp-for="@Model.Pictures.Select(x=>x.Url)" class="form-control" />
+            <span asp-validation-for="@Model.Pictures.Select(x=>x.Url)" class="text-danger"></span>
+        </div>*@
+            @*<div class="form-group">
+            <label asp-for="Cuisines" class="control-label"></label>
+            <input type="checkbox" asp-for="Cuisines" class="form-control">@Model.Cuisines[i]</input>
+            <span asp-validation-for="Cuisines" class="text-danger"></span>
+        </div>*@
+
+            <div class="form-group">
+                <input type="submit" value="Create this restaurant" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    @if (User.IsInRole("Administrators"))
+    {
+        <a class="btn btn-sm btn-secondary" asp-action="GetAllRestaurantsAdmin">Back to List</a>
+    }
+    else
+    {
+        <a class="btn btn-sm btn-secondary" asp-action="GetRestaurantsByRestaurantManager">Back to List</a>
+    }
+</div>
+

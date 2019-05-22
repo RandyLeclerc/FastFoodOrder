@@ -1,0 +1,60 @@
+﻿@model List<Shared.BTO.BasketBTO>
+
+@{
+    ViewData["Title"] = "GetBasketsByUserId";
+}
+<h1>Your orders : </h1>
+
+<ul class="list-group">
+    @foreach (var basket in Model)
+    {
+        <li class="list-group-item">
+
+            <h2>
+                Restaurant : @basket.ShoppingMeals.ToList()[0].Meal.MealType.Restaurant.Name
+            </h2>
+            <h5>
+                Id order :  @basket.Id
+            </h5>
+            <table class="table table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => basket.ShoppingMeals.ToList()[0].Meal.MealType)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => basket.ShoppingMeals.ToList()[0].Meal)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => basket.ShoppingMeals.ToList()[0].Quantity)
+                        </th>
+                    </tr>
+                </thead>
+                @foreach (var shoppingMeal in basket.ShoppingMeals)
+                {
+
+
+
+                    <tbody>
+                        @*@foreach (var item in shoppingMeal)
+                            {*@
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => shoppingMeal.Meal.MealType.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => shoppingMeal.Meal.Name)
+                            </td>
+                            <td>
+                                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                                @Html.DisplayFor(modelItem => shoppingMeal.Quantity)
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+        </li>
+    }
+</ul>

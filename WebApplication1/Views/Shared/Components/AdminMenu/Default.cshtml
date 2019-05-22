@@ -1,0 +1,31 @@
+﻿@model IEnumerable<WebApplication1.Components.AdminMenuItem>
+
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Admin<b class="caret"></b>
+</a>
+
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+    @foreach (var menuItem in Model)
+    {
+
+        @if (menuItem.ActionValue == "GetAllCuisines")
+        {
+            <a class="dropdown-item" asp-controller="Cuisine" asp-action=@menuItem.ActionValue>@menuItem.DisplayValue</a> 
+        }
+        else if (menuItem.ActionValue == "GetAllPictures")
+        {
+             <a class="dropdown-item" asp-controller="Picture" asp-action=@menuItem.ActionValue>@menuItem.DisplayValue</a>
+        }
+        else if (menuItem.ActionValue == "GetAllRestaurantsAdmin")
+        {
+                <a class="dropdown-item" asp-controller="Restaurant" asp-action=@menuItem.ActionValue>@menuItem.DisplayValue</a>
+        }
+        else
+        {
+                <a class="dropdown-item" asp-controller="Admin" asp-action=@menuItem.ActionValue>@menuItem.DisplayValue</a>
+        }
+
+    }
+</div>
+
+

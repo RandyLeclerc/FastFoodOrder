@@ -1,0 +1,109 @@
+﻿@model Shared.BTO.RestoBTO
+
+@{
+    ViewData["Title"] = "EditRestautant";
+}
+
+<h1>Edit @Model.Name Restaurant : </h1>
+
+<h4>RestoBTO</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditRestaurant" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" readonly="readonly" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            @if (User.IsInRole("Administrators"))
+            {
+                <div class="form-group">
+                    <label asp-for="UserManagerId" class="control-label"></label>
+                    <input asp-for="UserManagerId" class="form-control" />
+                    <span asp-validation-for="UserManagerId" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <div class="form-group" hidden="hidden">
+                    <label asp-for="UserManagerId" class="control-label"></label>
+                    <input asp-for="UserManagerId" class="form-control" />
+                    <span asp-validation-for="UserManagerId" class="text-danger"></span>
+                </div>
+            }
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShortDescription" class="control-label"></label>
+                <input asp-for="ShortDescription" class="form-control" />
+                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LongDescription" class="control-label"></label>
+                <input asp-for="LongDescription" class="form-control" />
+                <span asp-validation-for="LongDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <fieldset class="form-group">
+                <div class="custom-checkbox">
+                    <ul class="list-group list-group-flush">
+                        @for (var i = 0; i < Model.Cuisines.Count(); i++)
+                        {
+                            <li class="list-group-item">
+                                @*@Html.EditorFor(model => @Model.Cuisines[i])*@
+                                <input asp-for="@Model.Cuisines[i].Selected" type="checkbox" />
+                                <label asp-for="@Model.Cuisines[i].Selected">@Model.Cuisines[i].Name</label>
+                                <input type="hidden" asp-for="@Model.Cuisines[i].Id" />
+                                <input type="hidden" asp-for="@Model.Cuisines[i].Name" />
+                                @*<input type="hidden" asp-for="@Model.Cuisines[i].Selected" />*@
+                            </li>
+                        }
+                    </ul>
+
+                </div>
+            </fieldset>
+            <div class="form-group">
+
+                <a class="btn btn-success" asp-controller="Picture" asp-action="GetAllPicturesByRestoId" asp-route-id="@Model.Id">
+                    Go to the pictures of this restaurant
+                </a>
+                <a class="btn btn-success" asp-controller="MealType" asp-action="GetAllMealTypesByRestoId" asp-route-id="@Model.Id">
+                    Go to the meal types
+                </a>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<div>
+    @if (User.IsInRole("Administrators"))
+    {
+        <a class="btn btn-sm btn-secondary" asp-action="GetAllRestaurantsAdmin">Back to List</a>
+    }
+    else
+    {
+        <a class="btn btn-sm btn-secondary" asp-action="GetRestaurantsByRestaurantManager">Back to List</a>
+    }
+</div>
+

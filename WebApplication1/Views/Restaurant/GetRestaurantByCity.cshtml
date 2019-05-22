@@ -1,0 +1,43 @@
+﻿@*@using Shared.BTO*@
+@model IEnumerable<Shared.BTO.RestoBTO>
+
+    @*@{
+    ViewData["Title"] = "GetRestaurantByCity";
+    }*@
+
+    <h1>GetRestaurantByCity</h1>
+
+    @if(!Model.Any())
+    {
+    <tr><td colspan="3" class="text-center">No Resto found</td></tr>
+    }
+    else
+    {
+    <table class="table table-condensed table-bordered" header header-content="Restos by city">
+        <tr>
+            @*<th>Resto ID</th>
+        <th>Manager Id</th>*@
+            <th>Resto Name</th>
+            <th>Description</th>
+            <th>City</th>
+            <th>Action</th>
+        </tr>
+        @foreach (var item in Model)
+            {
+    <tr>
+        @*<td>@item.Id</td>
+        <td>@item.UserManagerId</td>*@
+        <td>@item.Name</td>
+        <td>@item.ShortDescription</td>
+        <td>@item.City</td>
+        <td>
+            <form asp-action="RestaurantDetails" asp-route-id="@item.Id" method="get">
+                <a class="btn btn-sm btn-primary" @*asp-action="EditRole" asp-route-id="@role.Id"*@>See the details!</a>
+            </form>
+        </td>
+    </tr>
+            }
+
+    </table>
+}
+
