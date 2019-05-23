@@ -16,6 +16,7 @@ namespace BLL.RestaurantService.Domain
         public ICollection<CuisineDomain> Cuisines { get; set; }
         public ICollection<PictureDomain> Pictures { get; set; }
         public ICollection<MealTypeDomain> MealTypes { get; set; }
+        public ICollection<ScheduleDomain> Schedules { get; set; }
 
     }
 }

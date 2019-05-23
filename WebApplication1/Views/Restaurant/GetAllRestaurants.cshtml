@@ -9,73 +9,54 @@
 }
 else
 {
-    <table class="table table-condensed table-bordered" header header-content="Restos by city">
-        <tr>
-            @*<th>Resto ID</th>
-                <th>Manager Id</th>*@
-            <th>Resto Name</th>
-            <th>Image</th>
-            <th>Description</th>
-            <th>City</th>
-            <th>Cuisines</th>
-            <th>Action</th>
-        </tr>
+    <div class="card-columns">
+
+        @*<table class="table table-condensed table-bordered" header header-content="Restos by city">*@
+        @*<tr>
+                <th>Resto Name</th>
+                <th>Image</th>
+                <th>Description</th>
+                <th>City</th>
+                <th>Cuisines</th>
+                <th>Action</th>
+            </tr>*@
         @foreach (var item in Model)
         {
-            <tr>
-                @*<td>@item.Id</td>
-                    <td>@item.UserManagerId</td>*@
-                <td>@item.Name</td>
-                @*@item.Pictures*@
+            <div class="card">
+                @foreach (var picture in item.Pictures)
+                {
+                    @*i++;
+                        var active = i == 1 ? "active" : "";
+                        <div class="carousel-item @active">*@
+                    <img src="@Html.DisplayFor(x => picture.Url)" class="card-img-top" alt="" />
+                    @*</div>*@
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.ShortDescription</p>
+                    <p class="card-text"><small class="text-muted">@item.City</small></p>
+                    <p class="card-columns">
+                        <ul class="list-group list-group-flush">
+                            @foreach (var cuisine in item.Cuisines.ToList())
+                            {
+                                <li class="list-group-item">
+                                    @Html.DisplayFor(modelItem => cuisine.Name)
+                                </li>
+                            }
+                        </ul>
+                    </p>
+                    <div class="card-link">
+                        <form asp-action="RestaurantDetails" asp-route-id="@item.Id" method="get">
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                See the details!
+                            </button>
+                        </form>
+                    </div>
+                </div>
 
-            <td>
-                @*<div id="demo" class="carousel slide" data-ride="carousel">
-                    <ul class="carousel-indicators">
-                        <li data-target="#demo" data-slide-to="0" class="active"></li>
-                        <li data-target="#demo" data-slide-to="1"></li>
-                        <li data-target="#demo" data-slide-to="2"></li>
-                    </ul>*@
-                    @*<div class="carousel-inner" role="listbox">
-                        @{int i = 0;}*@
-
-                        @foreach (var picture in item.Pictures)
-                        {
-                            @*i++;
-                            var active = i == 1 ? "active" : "";
-                            <div class="carousel-item @active">*@
-                                <img src="@Html.DisplayFor(x => picture.Url)" class="img-thumbnail" alt="" />
-                            @*</div>*@
-                        }
-                    @*</div>
-                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </a>
-                    <a class="carousel-control-next" href="#demo" data-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </a>
-                </div>*@
-            </td>
-                <td>@item.ShortDescription</td>
-                <td>@item.City</td>
-                <td>
-                    <ul class="list-group list-group-flush">
-                        @foreach (var cuisine in item.Cuisines.ToList())
-                        {
-                            <li class="list-group-item">
-                                @Html.DisplayFor(modelItem => cuisine.Name)
-                            </li>
-                        }
-                    </ul>
-                </td>
-                <td>
-                    <form asp-action="RestaurantDetails" asp-route-id="@item.Id" method="get">
-                        <button type="submit" class="btn btn-sm btn-primary">
-                            See the details!
-                        </button>
-                    </form>
-                </td>
-            </tr>
+            </div>
         }
+    </div>
 
-    </table>
+
 }

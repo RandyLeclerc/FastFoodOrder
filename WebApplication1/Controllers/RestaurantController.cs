@@ -98,10 +98,10 @@ namespace WebApplication1.Controllers
             restoBTO.Cuisines = cuisineUC.GetAllCuisines().ToList();
             restoBTO.Pictures = new List<PictureBTO>().DefaultIfEmpty().ToList();
             restoBTO.MealTypes = new List<MealTypeBTO>().DefaultIfEmpty().ToList();
-            restoBTO.MealTypes.Add(new MealTypeBTO { Name = "test" });
+            restoBTO.Schedules = new List<ScheduleBTO>().DefaultIfEmpty().ToList();
+            //restoBTO.MealTypes.Add(new MealTypeBTO { Name = "test" });
             return View(restoBTO);
         }
-
 
         [Authorize(Roles = "RestaurantManager, Administrators")]
         [HttpPost]

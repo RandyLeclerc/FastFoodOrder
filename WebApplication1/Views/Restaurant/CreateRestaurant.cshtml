@@ -8,17 +8,19 @@
 
 }
 
+<link rel="stylesheet" href="~/css/checkbox.css" />
+
 <h1>Create a new restaurant</h1>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-12">
         <form asp-action="CreateRestaurant" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*<div class="form-group">
-            <label asp-for="Id" class="control-label"></label>
-            <input asp-for="Id" class="form-control" />
-            <span asp-validation-for="Id" class="text-danger"></span>
-        </div>*@
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>*@
             @if (User.IsInRole("Administrators"))
             {
                 <div class="form-group">
@@ -68,46 +70,142 @@
                             </li>
                         }
                     </ul>
-
                 </div>
             </fieldset>
 
-            @*<div class="form-group">
-            <label class="col-md-2 control-label">Restaurant Picture</label>
-            <div class="col-md-10">
-                <input class="form-control" type="file" name="pic" accept="image/*" />
+            <h5>Opening Hours : </h5>
+            <div class="row">
+                <ul class="nav nav-pills nav-stacked flex-column col-3">
+                    <li class="active">
+                        <a data-toggle="pill" href="#monday" class="btn btn-primary btn-lg w-50">Monday</a>
+                        @*<span class="ques">Open ?</span>*@
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                            <span class="absolute-no">Closed</span>
+                        </label>
+                    </li>
+                    <li>
+                        <a data-toggle="pill" href="#tuesday" class="btn btn-primary btn-lg w-50">Tuesday</a>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                            <span class="absolute-no">Closed</span>
+                        </label>
+                    </li>
+                    <li>
+                        <a data-toggle="pill" href="#wednesday" class="btn btn-primary btn-lg w-50">Wednesday</a>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                            <span class="absolute-no">Closed</span>
+                        </label>
+                    </li>
+                    <li>
+                        <a data-toggle="pill" href="#thursday" class="btn btn-primary btn-lg w-50">Thursday</a>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                            <span class="absolute-no">Closed</span>
+                        </label>
+                    </li>
+                    <li>
+                        <a data-toggle="pill" href="#friday" class="btn btn-primary btn-lg w-50">Friday</a>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                            <span class="absolute-no">Closed</span>
+                        </label>
+                    </li>
+                    <li>
+                        <a data-toggle="pill" href="#saturday" class="btn btn-primary btn-lg w-50">Saturday</a>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                            <span class="absolute-no">Closed</span>
+                        </label>
+                    </li>
+                    <li>
+                        <a data-toggle="pill" href="#sunday" class="btn btn-primary btn-lg w-50">Sunday</a>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                            <span class="absolute-no">Closed</span>
+                        </label>
+                    </li>
+                </ul>
+
+                <div class="tab-content col-9">
+                    <div id="monday" class="tab-pane fade in active">
+                        <h3>Monday</h3>
+                        <div>
+                            Opening hour :
+                            <input type="time" />
+                        </div>
+                        <div>
+                            Closing hour :
+                            <input type="time" />
+                        </div>
+                    </div>
+                    <div id="tuesday" class="tab-pane fade">
+                        <h3>Tuesday</h3>
+                        <p>Le mardi</p>
+                    </div>
+                    <div id="wednesday" class="tab-pane fade">
+                        <h3>Wednesday</h3>
+                        <p>Le mercredi</p>
+                    </div>
+                    <div id="thursday" class="tab-pane fade">
+                        <h3>Thursday</h3>
+                        <p>Le jeudi</p>
+                    </div>
+                    <div id="friday" class="tab-pane fade">
+                        <h3>Friday</h3>
+                        <p>Le vendredi</p>
+                    </div>
+                    <div id="saturday" class="tab-pane fade">
+                        <h3>Saturday</h3>
+                        <p>Le samedi</p>
+                    </div>
+                    <div id="sunday" class="tab-pane fade">
+                        <h3>Sunday</h3>
+                        <p>Le dimanche</p>
+                    </div>
+                </div>
+                @*<table class="table">
+                        <thead>
+                            <tr>
+                                <th>Day of the week</th>
+                                <th>First service</th>
+                                <th>Second service</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Monday</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Tuesday</td>
+                            </tr>
+                            <tr>
+                                <td>Wednesday</td>
+                            </tr>
+                            <tr>
+                                <td>Thursday</td>
+                            </tr>
+                            <tr>
+                                <td>Friday</td>
+                            </tr>
+                            <tr>
+                                <td>Saturday</td>
+                            </tr>
+                            <tr>
+                                <td>Sunday</td>
+                            </tr>
+                        </tbody>
+                    </table>*@
             </div>
-        </div>*@
-
-            @*<div class="form-group">
-                <label asp-for="Pictures[0].Url" class="control-label">Url of your Picture : </label>
-                <input asp-for="Pictures[0].Url" class="form-control" />
-                <span asp-validation-for="Pictures[0].Url" class="text-danger"></span>
-            </div>*@
-            @*<input asp-for="MealTypes" class="form-control" />
-
-            MealTypes
-            @await Component.InvokeAsync("MealType", new { RestoBTO = Model })*@
-
-
-            @*<div class="custom-checkbox">
-            <label asp-for="Pictures[0].IsProfilePicture" class="control-label"></label>
-            <input asp-for="Pictures[0].IsProfilePicture" class="form-control" />
-            <span asp-validation-for="Pictures[0].IsProfilePicture" class="text-danger"></span>
-        </div>*@
-
-
-
-            @*<div class="form-group">
-            <label class="control-label">Url : </label>
-            <select asp-for="@Model.Pictures.Select(x=>x.Url)" class="form-control" />
-            <span asp-validation-for="@Model.Pictures.Select(x=>x.Url)" class="text-danger"></span>
-        </div>*@
-            @*<div class="form-group">
-            <label asp-for="Cuisines" class="control-label"></label>
-            <input type="checkbox" asp-for="Cuisines" class="form-control">@Model.Cuisines[i]</input>
-            <span asp-validation-for="Cuisines" class="text-danger"></span>
-        </div>*@
 
             <div class="form-group">
                 <input type="submit" value="Create this restaurant" class="btn btn-primary" />
@@ -126,4 +224,31 @@
         <a class="btn btn-sm btn-secondary" asp-action="GetRestaurantsByRestaurantManager">Back to List</a>
     }
 </div>
+
+@*<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker3').datetimepicker({
+            format: 'LT'
+        });
+    });
+</script>*@
+
+@*//$(document).ready(function () {
+    //    $.each("a[data-toggle = pill]").click(function () {
+
+
+    //        //$(active).css("background-color", "white");
+    //        //$(this).css("background-color", "red");
+
+
+
+    //        //var self = $(this).parent();
+
+    //        //self.toggleClass();
+    //        //self.children().toggleClass();
+    //        //self.next().toggle();
+    //    })
+    //});*@
+
+
 

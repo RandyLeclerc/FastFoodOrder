@@ -28,7 +28,8 @@ namespace DAL.Extensions
                     PhoneNumber = resto.PhoneNumber,
                     Pictures = resto.Pictures?.Select(x=>x.PictureToDTO()).ToList() ?? null,
                     Cuisines = resto.RestaurantCuisines?.Select(x => x.Cuisine.ToDTO()).ToList() ?? null,
-                    MealTypes = resto.MealTypes?.Select(x=>x.MealTypeToDTO()).ToList() ?? null
+                    MealTypes = resto.MealTypes?.Select(x=>x.MealTypeToDTO()).ToList() ?? null,
+                    Schedules = resto.Schedules?.Select(x=>x.ScheduleToDTO()).ToList() ?? null
                 };
             else return null;
         }
@@ -44,7 +45,8 @@ namespace DAL.Extensions
                     PhoneNumber = restoDTO.PhoneNumber,
                     RestaurantCuisines = restoDTO.Cuisines?.Select(x=> x.ToRestaurantCuisines()).ToList() ?? null,
                     Pictures = restoDTO.Pictures?.Select(x=>x.DtoToPicture()).ToList() ?? null,
-                    MealTypes = restoDTO.MealTypes?.Select(x => x.DtoToMealType()).ToList() ?? null
+                    MealTypes = restoDTO.MealTypes?.Select(x => x.DtoToMealType()).ToList() ?? null,
+                    Schedules = restoDTO.Schedules?.Select(x => x.DtoToSchedule()).ToList() ?? null
             };
 
     //    public static ICollection<Picture> ToPicture(this RestoDTO restoDTO)

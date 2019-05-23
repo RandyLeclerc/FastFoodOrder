@@ -15,5 +15,6 @@ namespace Shared.DTO
         public ICollection<CuisineDTO> Cuisines { get; set; }
         public ICollection<PictureDTO> Pictures { get; set; }
         public ICollection<MealTypeDTO> MealTypes { get; set; }
+        public ICollection<ScheduleDTO> Schedules { get; set; }
     }
 }

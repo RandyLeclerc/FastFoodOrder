@@ -23,7 +23,9 @@ namespace BLL.Extensions
                 PhoneNumber = Domain.PhoneNumber,
                 Pictures = Domain.Pictures?.Select(x=>x.PictureToBTO()).ToList() ?? null,
                 Cuisines = Domain.Cuisines?.Select(x=>x.ToBTO()).ToList() ?? null,
-                MealTypes = Domain.MealTypes?.Select(x => x.MealTypeDomainToBTO()).ToList() ?? null
+                MealTypes = Domain.MealTypes?.Select(x => x.MealTypeDomainToBTO()).ToList() ?? null,
+                Schedules = Domain.Schedules?.Select(x => x.ScheduleToBTO()).ToList() ?? null
+
             };
 
         public static RestoDTO ToDTO(this RestoDomain Domain)
@@ -39,7 +41,8 @@ namespace BLL.Extensions
                 PhoneNumber = Domain.PhoneNumber,
                 Pictures = Domain.Pictures?.Select(x=>x.PictureDomainToDTO()).ToList() ?? null,
                 Cuisines = Domain.Cuisines.Select(x=>x.ToDTO()).ToList(),
-                MealTypes = Domain.MealTypes?.Select(x => x.MealTypeDomainToDTO()).ToList() ?? null
+                MealTypes = Domain.MealTypes?.Select(x => x.MealTypeDomainToDTO()).ToList() ?? null,
+                Schedules = Domain.Schedules?.Select(x => x.ScheduleDomainToDTO()).ToList() ?? null
 
             };
         public static RestoDomain DTOToDomain(this RestoDTO restoDto)
@@ -55,8 +58,8 @@ namespace BLL.Extensions
                 PhoneNumber = restoDto.PhoneNumber,
                 Pictures = restoDto.Pictures?.Select(x=>x.DTOToPictureDomain()).ToList() ?? null,
                 Cuisines = restoDto.Cuisines?.Select(x=>x.DTOToCuisineDomain()).ToList()??null,
-                MealTypes = restoDto.MealTypes?.Select(x => x.DTOToMealTypeDomain()).ToList() ?? null
-
+                MealTypes = restoDto.MealTypes?.Select(x => x.DTOToMealTypeDomain()).ToList() ?? null,
+                Schedules = restoDto.Schedules?.Select(x => x.DTOToScheduleDomain()).ToList() ?? null
             };
 
         public static RestoDomain BTOToDomain(this RestoBTO restoBto)
@@ -72,8 +75,8 @@ namespace BLL.Extensions
                 PhoneNumber = restoBto.PhoneNumber,
                 Pictures = restoBto.Pictures?.Select(x=>x.BTOToPictureDomain()).ToList() ?? null,
                 Cuisines = restoBto.Cuisines?.Select(x=>x.BTOToCuisineDomain()).ToList()??new List<CuisineDomain>(),
-                MealTypes = restoBto.MealTypes?.Select(x => x.BTOToMealTypeDomain()).ToList() ?? null
-
+                MealTypes = restoBto.MealTypes?.Select(x => x.BTOToMealTypeDomain()).ToList() ?? null,
+                Schedules = restoBto.Schedules?.Select(x => x.BTOToScheduleDomain()).ToList() ?? null
             };
 
     }

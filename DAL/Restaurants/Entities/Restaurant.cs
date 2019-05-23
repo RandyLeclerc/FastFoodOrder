@@ -1,6 +1,7 @@
 ﻿using DAL.Cuisines.Entities;
 using DAL.MealTypes.Entities;
 using DAL.Pictures.Entities;
+using DAL.Schedules.Entities;
 using DAL.User.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,5 +22,6 @@ namespace DAL.Restaurants.Entities
         public virtual ICollection<RestaurantCuisine> RestaurantCuisines { get; set; }
         public /*virtual*/ ICollection<Picture> Pictures { get; set; }
         public /*virtual*/ ICollection<MealType> MealTypes { get; set; }
+        public /*virtual*/ ICollection<Schedule> Schedules { get; set; }
     }
 }

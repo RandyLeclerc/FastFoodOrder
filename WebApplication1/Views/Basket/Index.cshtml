@@ -5,60 +5,61 @@
 }
     <div class="text-center">
         @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
-        <form asp-action="CreateBasket" method="post" >
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <table class="table table-bordered table-striped">
-                <thead>
+        @*<form asp-action="CreateBasket" method="post" >
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Meal</th>
+                    <th class="text-right">Price</th>
+                    <th class="text-right">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var meal in Model.basketUC.shoppingMeals)
+                {
                     <tr>
-                        <th>Quantity</th>
-                        <th>Meal</th>
-                        <th class="text-right">Price</th>
-                        <th class="text-right">Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var meal in Model.basketUC.shoppingMeals)
-                    {
-                        <tr>
 
-                            <td class="text-center">@meal.Quantity</td>
-                            <td class="text-left">@meal.Meal.Name</td>
-                            @*<td class="text-left">@Model.basketUC.restoId</td>*@
-                            <td class="text-right">@meal.Meal.Price.ToString("c")</td>
-                            <td class="text-right">
-                                @((meal.Quantity * meal.Meal.Price).ToString("c"))
-                            </td>
-                            <td>
-
-                                <div asp-action="RemoveMealFromBasket" method="post">
-                                    <input type="hidden" name="MealId"
-                                           value="@meal.MealId" />
-                                    @*<input type="hidden" name="returnUrl"
-                                value="@Model.ReturnUrl" />*@
-                                    @*<input type="hidden" name="restoId"
-                                value="@meal.Meal." />*@
-                                    <button type="submit" class="btn btn-sm btn-danger ">
-                                        Remove
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3" class="text-right">Total:</td>
+                        <td class="text-center">@meal.Quantity</td>
+                        <td class="text-left">@meal.Meal.Name</td>
+                        @*<td class="text-left">@Model.basketUC.restoId</td>*@
+                        <td class="text-right">@meal.Meal.Price.ToString("c")</td>
                         <td class="text-right">
-                            @Model.basketUC.ComputeTotalValue().ToString("c")
+                            @((meal.Quantity * meal.Meal.Price).ToString("c"))
+                        </td>
+                        <td>
+
+                            <form asp-action="RemoveMealFromBasket" method="post">
+                                <input type="hidden" name="MealId"
+                                       value="@meal.MealId" />
+                                @*<input type="hidden" name="returnUrl"
+                                value="@Model.ReturnUrl" />*@
+                                @*<input type="hidden" name="restoId"
+                                value="@meal.Meal." />*@
+                                <button type="submit" class="btn btn-sm btn-danger ">
+                                    Remove
+                                </button>
+                            </form>
                         </td>
                     </tr>
-                </tfoot>
-            </table>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right">Total:</td>
+                    <td class="text-right">
+                        @Model.basketUC.ComputeTotalValue().ToString("c")
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
 
-
+        <form asp-action="CreateBasket" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <input type="submit" name="viewModel" value="Complete your order" class="btn btn-primary" />
             </div>
-        </form>
+            </form>
     </div>
 

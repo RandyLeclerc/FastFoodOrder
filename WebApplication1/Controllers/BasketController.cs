@@ -126,6 +126,7 @@ namespace WebApplication1.Controllers
         {
             HttpContext.Session.SetJson("BasketUC", basketUC);
         }
+        [HttpPost]
         public IActionResult RemoveMealFromBasket(int MealId)
         {
             var mealBTO = mealUC.GetMealById(MealId);
@@ -184,6 +185,10 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Error", new { errorMessage = "You have to be logged to complete your order" });
             var result = basketUC.AddBasket(basketBTO);
             basketUC.ClearShoppingMeals();
+            if (basketUC.shoppingMeals.Count==0)
+            {
+                HttpContext.Session.Clear();
+            }
             if (result == null)
             {
                 return RedirectToAction("Error", new { errorMessage = "We can't add this basket, please contact support" });

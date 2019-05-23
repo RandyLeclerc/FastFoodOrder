@@ -11,6 +11,7 @@ using DAL.MealTypes.Entities;
 using DAL.Meals.Entities;
 using DAL.ShoppingMeals.Entities;
 using DAL.Baskets.Entities;
+using DAL.Schedules.Entities;
 
 namespace DAL.Data
 {
@@ -28,6 +29,7 @@ namespace DAL.Data
         public DbSet<Meal> Meals { get; set; }
         public DbSet<ShoppingMeal> ShoppingMeals { get; set; }
         public DbSet<Basket> Baskets { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
 
         //To add relations between restaurant and cuisine
         protected override void OnModelCreating(ModelBuilder modelBuilder)
