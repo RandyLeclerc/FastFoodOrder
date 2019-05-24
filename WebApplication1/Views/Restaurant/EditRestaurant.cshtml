@@ -78,12 +78,14 @@
                 </div>
             </fieldset>
             <div class="form-group">
-
                 <a class="btn btn-success" asp-controller="Picture" asp-action="GetAllPicturesByRestoId" asp-route-id="@Model.Id">
                     Go to the pictures of this restaurant
                 </a>
                 <a class="btn btn-success" asp-controller="MealType" asp-action="GetAllMealTypesByRestoId" asp-route-id="@Model.Id">
                     Go to the meal types
+                </a>
+                <a class="btn btn-success" asp-controller="Schedule" asp-action="GetAllSchedulesByRestoId" asp-route-id="@Model.Id">
+                    Go to the schedules
                 </a>
             </div>
 

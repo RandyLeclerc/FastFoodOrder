@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Shared.BTO.ScheduleBTO>
+
+@{
+    ViewData["Title"] = "GetAllSchedulesByRestoId";
+}
+
+<h1>GetAllSchedulesByRestoId</h1>
+
+<p>
+    <a class="btn btn-sm btn-primary" asp-action="CreateSchedule" asp-route-id="@ViewData["RestoId"]">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeekDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeOpen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeClosed)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeekDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeOpen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeClosed)
+            </td>
+            <td>
+                <form asp-action="DeleteSchedule" asp-route-id="@item.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-action="EditSchedule" asp-route-id="@item.Id">Edit</a>
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Do you really want to delete this schedule?');">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div>
+    <a class="btn btn-sm btn-secondary" asp-controller="Restaurant" asp-action="EditRestaurant" asp-route-id="@ViewData["RestoId"]">Back to your restaurant</a>
+</div>

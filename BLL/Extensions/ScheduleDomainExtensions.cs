@@ -45,7 +45,7 @@ namespace BLL.Extensions
                 {
                     Id = Domain.Id,
                     RestoId = Domain.RestoId,
-                    DayOfWeek = Domain.DayOfWeek,
+                    WeekDay = (WeekDay)Domain.DayOfWeek,
                     TimeOpen = Domain.TimeOpen,
                     TimeClosed = Domain.TimeClosed,
                     Resto = Domain.Resto.ToBTO()
@@ -59,7 +59,7 @@ namespace BLL.Extensions
                 {
                     Id = scheduleBto.Id,
                     RestoId = scheduleBto.RestoId,
-                    DayOfWeek = scheduleBto.DayOfWeek,
+                    DayOfWeek = (int)scheduleBto.WeekDay,
                     TimeOpen = scheduleBto.TimeOpen,
                     TimeClosed = scheduleBto.TimeClosed,
                     Resto = scheduleBto.Resto.BTOToDomain()

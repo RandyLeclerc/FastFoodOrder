@@ -1,5 +1,6 @@
 ﻿using DAL.Data;
 using DAL.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Shared.DataContracts;
 using Shared.DTO;
 using System;
@@ -42,14 +43,35 @@ namespace DAL.Schedules
             throw new NotImplementedException();
         }
 
+        public List<ScheduleDTO> GetAllSchedulesByRestoId(int id)
+        {
+            return contextDB.Schedules
+                .Where(x => x.Resto.Id == id)
+                .Select(x => x.ScheduleToDTO())
+                .ToList();
+        }
+
         public ScheduleDTO GetById(int id)
         {
-            throw new NotImplementedException();
+            return contextDB.Schedules
+                .Include(x => x.Resto)
+                .FirstOrDefault(x => x.Id == id).ScheduleToDTO();
         }
 
         public ScheduleDTO Update(ScheduleDTO obj)
         {
-            throw new NotImplementedException();
+            var schedule = contextDB.Schedules.FirstOrDefault(x => x.Id == obj.Id);
+            if (schedule == null)
+                return null;
+            else
+            {
+                schedule.Resto = obj.Resto.ToRestaurant();
+                schedule.TimeOpen = obj.TimeOpen;
+                schedule.TimeClosed = obj.TimeClosed;
+                schedule.DayOfWeek = obj.DayOfWeek;
+                contextDB.SaveChanges();
+                return schedule.ScheduleToDTO();
+            }
         }
     }
 }

@@ -7,5 +7,6 @@ namespace Shared.DataContracts
 {
     public interface IScheduleRepository : IRepository<ScheduleDTO>
     {
+        List<ScheduleDTO> GetAllSchedulesByRestoId(int id);
     }
 }

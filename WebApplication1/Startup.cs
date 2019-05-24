@@ -25,6 +25,7 @@ using DAL.Pictures;
 using DAL.MealTypes;
 using DAL.Meals;
 using DAL.Baskets;
+using DAL.Schedules;
 
 namespace WebApplication1
 {
@@ -74,6 +75,7 @@ namespace WebApplication1
             services.AddTransient<IMealTypeRepository, MealTypeRepository>();
             services.AddTransient<IMealRepository, MealRepository>();
             services.AddTransient<IBasketRepository, BasketRepository>();
+            services.AddTransient<IScheduleRepository, ScheduleRepository>();
 
 
 

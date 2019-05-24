@@ -19,10 +19,11 @@ namespace Shared.BTO
         public List<CuisineBTO> Cuisines { get; set; }
         public List<PictureBTO> Pictures { get; set; }
         public List<MealTypeBTO> MealTypes { get; set; }
+        //public string AllSchedulesJSON { get; set; }  //TODO CG
+
         public List<ScheduleBTO> Schedules { get; set; }
 
         public string PictureUrl { get; set; }
         public BasketBTO Basket { get; set; }
-
     }
 }

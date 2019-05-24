@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Shared.BTO
@@ -12,14 +13,26 @@ namespace Shared.BTO
 
         public RestoBTO Resto { get; set; }
 
-        public int DayOfWeek { get; set; }
+        public WeekDay WeekDay { get; set; }
+        //public int DayOfWeek { get; set; }
 
-        //[DataType(DataType.Time)]
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
+
+        [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Time)]
         public DateTime TimeOpen { get; set; }
 
-        //[DataType(DataType.Time)]
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
+        [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Time)]
         public DateTime TimeClosed { get; set; }
+    }
+    public enum WeekDay
+    {
+        Sunday,
+        Monday,
+        Tuesday,
+        Wednesday,
+        Thursday,
+        Friday,
+        Saturday
     }
 }
