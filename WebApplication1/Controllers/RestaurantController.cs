@@ -38,7 +38,7 @@ namespace WebApplication1.Controllers
             var restaurantUC = new RestaurantUC(restoRepository);
             var result = restaurantUC.GetAllRestaurants();
             //????
-            
+
             if (result != null || result.ToList().Count == 0) return View(result);
             else
             {
@@ -78,10 +78,13 @@ namespace WebApplication1.Controllers
             var result = restaurantUC.FindRestaurantByCity(city);
             if (result.ToList().Count != 0) return View(result);
             else
-            //{
-            //    ModelState.AddModelError("", "Sorry! We don't find any restaurant with this city you asked");
-            //}
-            return RedirectToAction("Error", new { errorMessage = "Sorry! We don't find any restaurant with this city you asked" });
+                return RedirectToAction("Error", new { errorMessage = "Sorry! We don't find any restaurant with this city you asked" });
+        }
+        public IActionResult GetOpenRestaurantByDate(DateTime searchDate)
+        {
+            var restaurantUC = new RestaurantUC(restoRepository);
+            var result = restaurantUC.FindOpenRestaurantsByDate(searchDate);
+            return View("GetAllRestaurants", result);
         }
         public IActionResult Error(string errorMessage)
         {
@@ -150,7 +153,7 @@ namespace WebApplication1.Controllers
             if (result.Pictures.Count == 0)
                 result.Pictures = new List<PictureBTO>().DefaultIfEmpty().ToList();
             result.Cuisines = cuisineUC.GetAllCuisinesByRestaurantId(result.Id).ToList();
-            
+
             //var cuisinesChecked = 
             if (result != null)
                 return View(result);
@@ -188,7 +191,7 @@ namespace WebApplication1.Controllers
         {
             var restaurantUC = new RestaurantUC(restoRepository);
             var resto = restaurantUC.GetRestaurantById(id);
-            if (resto==null)
+            if (resto == null)
                 return RedirectToAction("Error", new { errorMessage = "Sorry! We don't find the restaurant with this Id" });
             else
             {
@@ -215,5 +218,4 @@ namespace WebApplication1.Controllers
 
     }
 }
- 
- 
+

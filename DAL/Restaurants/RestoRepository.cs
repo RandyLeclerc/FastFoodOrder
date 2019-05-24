@@ -62,6 +62,7 @@ namespace DAL.Restaurants
 
             var result = contextDB.Restaurants
                 .Include(x => x.UserManager)
+                .Include(x=>x.Schedules)
                 .Include(x => x.RestaurantCuisines)
                     .ThenInclude(y => y.Cuisine)
                 .Select(x => x.ToDTO()).ToList();

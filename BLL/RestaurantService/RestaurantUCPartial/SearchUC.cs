@@ -2,6 +2,7 @@
 using BLL.RestaurantService.Domain;
 using Shared.BTO;
 using Shared.DataContracts;
+using Shared.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,35 @@ namespace BLL.RestaurantService
             var restos = restoRepository.FindByCity(city); 
 
             return restos?.Select(x => x.DTOToDomain().ToBTO()) ?? new List<RestoBTO>();
+        }
+        public List<RestoBTO> FindOpenRestaurantsByDate(DateTime searchdate)
+        {
+            List<RestoDTO> result = new List<RestoDTO>();
+            var restos = restoRepository.GetAll().ToList();
+
+            foreach (var item in restos)
+            {
+                foreach (var schedule in item.Schedules)
+                {
+                    if(schedule.DayOfWeek == (int)searchdate.DayOfWeek)
+                    {
+                        if (searchdate.TimeOfDay >= schedule.TimeOpen.TimeOfDay && searchdate.TimeOfDay <= schedule.TimeClosed.TimeOfDay)
+                        {
+                            result.Add(item);
+                        }
+                    }
+                }
+            }
+            //restos.ForEach(x => x.Schedules.Where(y => y.DayOfWeek == (int)searchdate.DayOfWeek));
+
+//            result.ForEach(x => x.Pictures = contextDB.Pictures
+//.Where(y => y.Restaurant.Id == x.Id && y.IsProfilePicture)
+//.Select(z => z.PictureToDTO())
+//.ToList());
+
+            //restos.Select(x => x.Schedules.Where(y => y.DayOfWeek == (int)searchdate.DayOfWeek))
+            //    .ToList();
+            return result?.Select(x => x.DTOToDomain().ToBTO()).ToList() ?? new List<RestoBTO>();
         }
 
         public IEnumerable<RestoBTO> GetAllRestaurants()
