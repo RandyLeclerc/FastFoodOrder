@@ -27,7 +27,6 @@ namespace WebApplication1.Service
         {
             try
             {
-                string s = "";
                 var client = new SendGridClient(apiKey);
                 var msg = new SendGridMessage()
                 {
