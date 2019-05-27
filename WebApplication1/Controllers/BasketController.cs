@@ -183,18 +183,16 @@ namespace WebApplication1.Controllers
             basketBTO.ArrivalDate = arrivalDate;
 
             RestaurantUC restoUC = new RestaurantUC(restoRepository);
-
-            if (!restoUC.IsOpen(basketUC.restoId, basketBTO.ArrivalDate))
-            {
-                return RedirectToAction("Error", new { errorMessage = "The restaurant will be closed at this hour" });
-            }
-
             basketBTO.ShoppingMeals = basketUC.shoppingMeals
                 .Select(x => x.ShoppingMealDomainToBTO())
                 .ToList();
             basketBTO.UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             if (basketBTO.UserId == null)
                 return RedirectToAction("Error", new { errorMessage = "You have to be logged to complete your order" });
+            if (!restoUC.IsOpen(basketUC.restoId, basketBTO.ArrivalDate))
+            {
+                return RedirectToAction("Error", new { errorMessage = "The restaurant will be closed at this hour" });
+            }
             var result = basketUC.AddBasket(basketBTO);
             basketUC.ClearShoppingMeals();
             if (basketUC.shoppingMeals.Count==0)
@@ -286,6 +284,7 @@ namespace WebApplication1.Controllers
                     shoppingMeal.Meal.MealType.Restaurant = restoUC.GetRestaurantById(shoppingMeal.Meal.MealType.RestaurantId);
                 }
             }
+            result = result.OrderBy(x => x.ArrivalDate).ToList();
             return View(result);
         }
         public IActionResult GetBasketsByRestoId(int restoId)
@@ -301,7 +300,7 @@ namespace WebApplication1.Controllers
                     shoppingMeal.Meal.MealType.Restaurant = restoUC.GetRestaurantById(shoppingMeal.Meal.MealType.RestaurantId);
                 }
             }
-            return View(result);
+            return View(result.OrderBy(x => x.ArrivalDate).ToList());
         }
     }
 }

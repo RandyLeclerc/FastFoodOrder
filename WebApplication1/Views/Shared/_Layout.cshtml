@@ -48,7 +48,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Basket" asp-action="GetBasketsByUserId">History</a>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Basket" asp-action="GetBasketsByUserId">History</a>
+                            }
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="GetAllRestaurants">Restaurants</a>
