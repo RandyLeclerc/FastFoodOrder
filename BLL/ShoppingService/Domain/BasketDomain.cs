@@ -11,5 +11,7 @@ namespace BLL.ShoppingService.Domain
         public string UserId { get; set; }
         public ApplicationUserDomain User { get; set; }
         public ICollection<ShoppingMealDomain> ShoppingMeals { get; set; }
+        public DateTime ArrivalDate { get; set; }
+
     }
 }

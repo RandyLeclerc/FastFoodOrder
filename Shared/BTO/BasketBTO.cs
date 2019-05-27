@@ -10,5 +10,7 @@ namespace Shared.BTO
         public string UserId { get; set; }
         public UserBTO User { get; set; }
         public ICollection<ShoppingMealBTO> ShoppingMeals { get; set; }
+        public DateTime ArrivalDate { get; set; }
+
     }
 }

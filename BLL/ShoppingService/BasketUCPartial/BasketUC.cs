@@ -12,6 +12,7 @@ namespace BLL.ShoppingService
         private readonly IBasketRepository basketRepository;
         public List<ShoppingMealDomain> shoppingMeals;
         public int restoId { get; set; }
+        public DateTime ArrivalDate { get; set; }
         public BasketUC(IBasketRepository BasketRepository)
         {
             //shoppingMeals = BasketBTO.ShoppingMeals;

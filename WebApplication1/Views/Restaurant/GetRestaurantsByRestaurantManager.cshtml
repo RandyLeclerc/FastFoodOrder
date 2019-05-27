@@ -80,6 +80,10 @@
                         <a class="btn btn-success" asp-controller="Schedule" asp-action="GetAllSchedulesByRestoId" asp-route-id="@item.Id">
                             Manage schedules
                         </a>
+                        <a class="btn btn-success" asp-controller="Basket" asp-action="GetBasketsByRestoId" asp-route-restoId="@item.Id">
+                            See orders!
+                        </a>
+                        
                     </div>
                 </td>
                 <td>

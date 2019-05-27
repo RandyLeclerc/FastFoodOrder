@@ -1,4 +1,5 @@
-﻿using DAL.Data;
+﻿using DAL.Baskets.Entities;
+using DAL.Data;
 using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Shared.DataContracts;
@@ -45,6 +46,30 @@ namespace DAL.Baskets
         {
             return contextDB.Baskets
                 .Select(x => x.BasketToDTO());
+        }
+
+        public IEnumerable<BasketDTO> GetBasketsByRestoId(int restoId)
+        {
+            var baskets = contextDB.Baskets
+                .Include(u => u.User)
+                .Include(x => x.ShoppingMeals)
+                    .ThenInclude(y => y.Meal)
+                        .ThenInclude(z => z.MealType);
+
+            List<Basket> result = new List<Basket>();
+
+            foreach (var item in baskets)
+            {
+                foreach (var shops in item.ShoppingMeals)
+                {
+                    if (shops.Meal.MealType.RestaurantId==restoId)
+                    {
+                        result.Add(item);
+                        break;
+                    }
+                }
+            }
+            return result.Select(x=>x.BasketToDTO());
         }
 
         public IEnumerable<BasketDTO> GetBasketsByUserId(string UserId)

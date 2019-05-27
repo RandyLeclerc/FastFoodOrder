@@ -56,6 +56,9 @@
 }
     </tbody>
 </table>
-<div>
+@*<div>
     <a class="btn btn-sm btn-secondary" asp-controller="Restaurant" asp-action="EditRestaurant" asp-route-id="@ViewData["RestoId"]">Back to your restaurant</a>
+</div>*@
+<div>
+    <a class="btn btn-sm btn-secondary" asp-controller="Restaurant" asp-action="GetRestaurantsByRestaurantManager" asp-route-id="@User.Identity">Back to your restaurant</a>
 </div>

@@ -1,7 +1,7 @@
 ﻿@model List<Shared.BTO.BasketBTO>
 
 @{
-    ViewData["Title"] = "GetBasketsByUserId";
+    ViewData["Title"] = "GetBasketsByRestoId";
 }
 <h1>Your orders : </h1>
 
@@ -10,15 +10,19 @@
     {
     <li class="list-group-item">
 
-        <h2>
+        <h5>
+            User :  @basket.User.FirstName
+        </h5>
+        @*<h2>
             Restaurant : @basket.ShoppingMeals.ToList()[0].Meal.MealType.Restaurant.Name
-        </h2>
+        </h2>*@
         <h5>
             Id order :  @basket.Id
         </h5>
         <h5>
             Arrival date in restaurant :  @basket.ArrivalDate
         </h5>
+
         <table class="table table-hover">
             <thead class="thead-light">
                 <tr>
@@ -61,3 +65,7 @@
     </li>
     }
 </ul>
+
+<div>
+    <a class="btn btn-sm btn-secondary" asp-controller="Restaurant" asp-action="GetRestaurantsByRestaurantManager" asp-route-id="@User.Identity">Back to your restaurant</a>
+</div>

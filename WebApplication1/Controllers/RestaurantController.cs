@@ -78,7 +78,15 @@ namespace WebApplication1.Controllers
             var result = restaurantUC.FindRestaurantByCity(city);
             if (result.ToList().Count != 0) return View(result);
             else
-                return RedirectToAction("Error", new { errorMessage = "Sorry! We don't find any restaurant with this city you asked" });
+                return RedirectToAction("Error", new { errorMessage = "Sorry! We don't find any restaurant with this city" });
+        }
+        public IActionResult GetRestaurantByCuisine(int id)
+        {
+            var restaurantUC = new RestaurantUC(restoRepository);
+            var result = restaurantUC.GetAllRestaurantsByCuisineId(id);
+            if (result.ToList().Count != 0) return View("GetAllRestaurants", result);
+            else
+                return RedirectToAction("Error", new { errorMessage = "Sorry! We don't find any restaurant with this cuisine" });
         }
         public IActionResult GetOpenRestaurantByDate(DateTime searchDate)
         {
@@ -102,7 +110,6 @@ namespace WebApplication1.Controllers
             restoBTO.Pictures = new List<PictureBTO>().DefaultIfEmpty().ToList();
             restoBTO.MealTypes = new List<MealTypeBTO>().DefaultIfEmpty().ToList();
             restoBTO.Schedules = new List<ScheduleBTO>().DefaultIfEmpty().ToList();
-            //restoBTO.MealTypes.Add(new MealTypeBTO { Name = "test" });
             return View(restoBTO);
         }
 
@@ -195,7 +202,6 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Error", new { errorMessage = "Sorry! We don't find the restaurant with this Id" });
             else
             {
-                //var restaurantUC = new RestaurantUC(restoRepository);
                 try
                 {
                     restaurantUC.DeleteRestaurant(id);

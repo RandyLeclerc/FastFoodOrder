@@ -10,5 +10,7 @@ namespace Shared.DTO
         public string UserId { get; set; }
         public UserDTO User { get; set; }
         public ICollection<ShoppingMealDTO> ShoppingMeals { get; set; }
+        public DateTime ArrivalDate { get; set; }
+
     }
 }

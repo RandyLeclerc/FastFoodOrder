@@ -17,7 +17,8 @@ namespace DAL.Extensions
                     Id = basket.Id,
                     User = basket.User.ToDTO(),
                     UserId = basket.UserId,
-                    ShoppingMeals = basket.ShoppingMeals?.Select(x=>x.ShoppingMealToDTO()).ToList() ?? null
+                    ShoppingMeals = basket.ShoppingMeals?.Select(x=>x.ShoppingMealToDTO()).ToList() ?? null,
+                    ArrivalDate = basket.ArrivalDate
                 };
             else return null;
         }
@@ -29,7 +30,9 @@ namespace DAL.Extensions
                     Id = dto.Id,
                     User = dto.User.DTOToUser(),
                     UserId = dto.UserId,
-                    ShoppingMeals = dto.ShoppingMeals?.Select(x=>x.DtoToShoppingMeal()).ToList()??null
+                    ShoppingMeals = dto.ShoppingMeals?.Select(x=>x.DtoToShoppingMeal()).ToList()??null,
+                    ArrivalDate = dto.ArrivalDate
+
                 };
             else return null;
         }

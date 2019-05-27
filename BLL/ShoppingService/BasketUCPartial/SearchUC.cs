@@ -27,6 +27,12 @@ namespace BLL.ShoppingService
             var result = baskets.Select(x => x.DTOToBasketDomain().BasketDomainToBTO()).ToList();
             return result;
         }
+        public ICollection<BasketBTO> GetBasketsByRestoId(int restoId)
+        {
+            var baskets = basketRepository.GetBasketsByRestoId(restoId);
+            var result = baskets.Select(x => x.DTOToBasketDomain().BasketDomainToBTO()).ToList();
+            return result;
+        }
 
 
 

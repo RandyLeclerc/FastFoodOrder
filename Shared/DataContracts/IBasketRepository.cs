@@ -8,5 +8,6 @@ namespace Shared.DataContracts
     public interface IBasketRepository : IRepository<BasketDTO>
     {
         IEnumerable<BasketDTO> GetBasketsByUserId(string UserId);
+        IEnumerable<BasketDTO> GetBasketsByRestoId(int restoId);
     }
 }

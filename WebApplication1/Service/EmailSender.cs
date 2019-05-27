@@ -21,14 +21,11 @@ namespace WebApplication1.Service
         public Task SendEmailAsync(string email, string subject, string message)
         {
             return Execute(Options.SendGridKey, subject, message, email);
-            //return Execute("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", subject, message, email);
         }
 
         public Task Execute(string apiKey, string subject, string message, string email)
         {
-            //Essai : 
-            //apiKey = Environment.GetEnvironmentVariable("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");
-
+            
             try
             {
                 var client = new SendGridClient(apiKey);

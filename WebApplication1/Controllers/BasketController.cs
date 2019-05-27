@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using WebApplication1.Infrastructure.Extensions;
 using WebApplication1.ViewModel;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace WebApplication1.Controllers
 {
@@ -22,6 +23,7 @@ namespace WebApplication1.Controllers
         private readonly IMealRepository mealRepository;
         private readonly IMealTypeRepository mealTypeRepository;
         private readonly IRestoRepository restoRepository;
+        private readonly IEmailSender _emailSender;
         public MealUC mealUC;
         public MealTypeUC mealTypeUC;
         private List<ShoppingMealBTO> ShoppingMeals { get; set; }
@@ -30,12 +32,13 @@ namespace WebApplication1.Controllers
         public BasketController(IBasketRepository BasketRepository, 
             IMealRepository MealRepository, 
             IMealTypeRepository MealTypeRepository,
-            IRestoRepository RestoRepository)
+            IRestoRepository RestoRepository, IEmailSender emailSender)
         {
             basketRepository = BasketRepository;
             mealRepository = MealRepository;
             mealTypeRepository = MealTypeRepository;
             restoRepository = RestoRepository;
+            _emailSender = emailSender;
             mealUC = new MealUC(mealRepository);
             mealTypeUC = new MealTypeUC(mealTypeRepository);
             basketUC = new BasketUC(basketRepository);
@@ -164,10 +167,10 @@ namespace WebApplication1.Controllers
         //}
 
         //[Authorize(Roles = "RestaurantManager, Administrators")]
-        //[HttpPost]
-        public IActionResult CreateBasket(BasketUCIndexViewModel viewModel)
+        [HttpPost]
+        public IActionResult CreateBasket(DateTime arrivalDate)
         {
-            /*BasketUC */basketUC = GetBasketUC();
+            basketUC = GetBasketUC();
 
             //BasketUC basketUC = viewModel.basketUC;
             //int idToReturn = basketBTO.MealType.Id;
@@ -177,6 +180,15 @@ namespace WebApplication1.Controllers
             }
             if (!ModelState.IsValid) return View(basketUC);
             var basketBTO = new BasketBTO();
+            basketBTO.ArrivalDate = arrivalDate;
+
+            RestaurantUC restoUC = new RestaurantUC(restoRepository);
+
+            if (!restoUC.IsOpen(basketUC.restoId, basketBTO.ArrivalDate))
+            {
+                return RedirectToAction("Error", new { errorMessage = "The restaurant will be closed at this hour" });
+            }
+
             basketBTO.ShoppingMeals = basketUC.shoppingMeals
                 .Select(x => x.ShoppingMealDomainToBTO())
                 .ToList();
@@ -194,6 +206,9 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Error", new { errorMessage = "We can't add this basket, please contact support" });
             }
             //??
+            _emailSender.SendEmailAsync(restoUC.FindRestoMailByRestoId(basketUC.restoId), 
+                "You have a new order", 
+                "See your orders by clicking here");
             return View(result);
         }
 
@@ -215,10 +230,8 @@ namespace WebApplication1.Controllers
                 {
                     throw new Exception("A problem occured...");
                 }
-                //??
                 return View(basket);
             }
-
         }
         //[Authorize(Roles = "Administrators")]
         [HttpGet]
@@ -254,6 +267,7 @@ namespace WebApplication1.Controllers
             var result = new BasketUC(basketRepository);
             result.restoId = basketUC.restoId;
             result.shoppingMeals = basketUC.shoppingMeals;
+            result.ArrivalDate = basketUC.ArrivalDate;
             //BasketBTO basket = HttpContext.Session.GetJson<BasketBTO>("BasketUC") ?? new BasketBTO();
             //BasketUC basketUC = new BasketUC(basketRepository, basketSession);
             return result;
@@ -262,6 +276,21 @@ namespace WebApplication1.Controllers
         public IActionResult GetBasketsByUserId()
         {
             var result = basketUC.GetBasketsByUserId(User.FindFirst(ClaimTypes.NameIdentifier).Value).ToList();
+            RestaurantUC restoUC = new RestaurantUC(restoRepository);
+
+            foreach (var item in result)
+            {
+                foreach (var shoppingMeal in item.ShoppingMeals)
+                {
+                    shoppingMeal.Meal.MealType = mealTypeUC.GetMealTypeById(shoppingMeal.Meal.MealTypeID);
+                    shoppingMeal.Meal.MealType.Restaurant = restoUC.GetRestaurantById(shoppingMeal.Meal.MealType.RestaurantId);
+                }
+            }
+            return View(result);
+        }
+        public IActionResult GetBasketsByRestoId(int restoId)
+        {
+            var result = basketUC.GetBasketsByRestoId(restoId).ToList();
             RestaurantUC restoUC = new RestaurantUC(restoRepository);
 
             foreach (var item in result)

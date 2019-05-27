@@ -12,5 +12,6 @@ namespace DAL.Baskets.Entities
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
         public ICollection<ShoppingMeal> ShoppingMeals { get; set; }
+        public DateTime ArrivalDate { get; set; }
     }
 }

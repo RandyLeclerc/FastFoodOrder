@@ -20,7 +20,8 @@ namespace BLL.Extensions
                     User = Domain.User.UserDomainToDTO(),
                     ShoppingMeals = Domain.ShoppingMeals?
                     .Select(x=>x.ShoppingMealDomainToDTO())
-                    .ToList() ?? null
+                    .ToList() ?? null,
+                    ArrivalDate = Domain.ArrivalDate
                 };
             else return null;
         }
@@ -34,7 +35,9 @@ namespace BLL.Extensions
                     User = basketDto.User.UserDTOToUserDomain(),
                     ShoppingMeals = basketDto.ShoppingMeals?
                     .Select(x=>x.DTOToShoppingMealDomain())
-                    .ToList() ?? null
+                    .ToList() ?? null,
+                    ArrivalDate = basketDto.ArrivalDate
+
                 };
             else return null;
         }
@@ -48,7 +51,9 @@ namespace BLL.Extensions
                     User = Domain.User.UserDomainToBTO(),
                     ShoppingMeals = Domain.ShoppingMeals?
                     .Select(x => x.ShoppingMealDomainToBTO())
-                    .ToList() ?? null
+                    .ToList() ?? null,
+                    ArrivalDate = Domain.ArrivalDate
+
                 };
             else return null;
         }
@@ -62,7 +67,8 @@ namespace BLL.Extensions
                     User = basketBto.User.UserBTOToUserDomain(),
                     ShoppingMeals = basketBto.ShoppingMeals?
                     .Select(x => x.BTOToShoppingMealDomain())
-                    .ToList() ?? null
+                    .ToList() ?? null,
+                    ArrivalDate = basketBto.ArrivalDate
                 };
             else return null;
         }

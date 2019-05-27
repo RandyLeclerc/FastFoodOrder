@@ -1,4 +1,5 @@
 ﻿using Shared.DTO;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,8 +9,8 @@ namespace Shared.DataContracts
     {
         IEnumerable<RestoDTO> FindByCity(string City);
         IEnumerable<RestoDTO> GetRestaurantsByRestaurantManager(string RestaurantManagerId);
-
-
-        //IEnumerable<RestoDTO> Restos { get; }
+        bool RestaurantIsOpen(int restoId, DateTime arrivalDate);
+        IEnumerable<RestoDTO> GetAllByCuisineId(int id);
+        string FindRestoMailByRestoId(int id);
     }
 }

@@ -57,6 +57,14 @@ namespace DAL.Restaurants
             return contextDB.Restaurants.Where(x => x.City == city).Select(x=>x.ToDTO());
         }
 
+        public string FindRestoMailByRestoId(int id)
+        {
+            var resto = contextDB.Restaurants
+                .Include(x=>x.UserManager)
+                .FirstOrDefault(x => x.Id == id);
+            return resto.UserManager.Email;
+        }
+
         public IEnumerable<RestoDTO> GetAll()
         {
 
@@ -73,6 +81,36 @@ namespace DAL.Restaurants
             .ToList());
             return result;
             
+        }
+
+        public IEnumerable<RestoDTO> GetAllByCuisineId(int id)
+        {
+            var restos = contextDB.Restaurants
+                .Include(x => x.UserManager)
+                .Include(x => x.Schedules)
+                .Include(x => x.RestaurantCuisines)
+                    .ThenInclude(y => y.Cuisine)
+                .Select(x => x.ToDTO()).ToList();
+
+            restos.ForEach(x => x.Pictures = contextDB.Pictures
+            .Where(y => y.Restaurant.Id == x.Id && y.IsProfilePicture)
+            .Select(z => z.PictureToDTO())
+            .ToList());
+
+            //restos.ForEach(x => x.Cuisines = contextDB.Cuisines
+            //        .Where(y => y.Id == id)
+            //        .Select(z => z.ToDTO())
+            //        .ToList());
+            var result = new List<RestoDTO>();
+            foreach (var item in restos)
+            {
+                foreach (var cuisine in item.Cuisines)
+                {
+                    if (cuisine.Id == id)
+                        result.Add(item);
+                }
+            }
+            return result;
         }
 
         public RestoDTO GetById(int id)
@@ -98,6 +136,25 @@ namespace DAL.Restaurants
                 .Select(x => x.ToDTO());
 
             return result;
+        }
+
+        public bool RestaurantIsOpen(int restoId, DateTime arrivalDate)
+        {
+            var resto = contextDB.Restaurants
+                .Include(x=>x.Schedules)
+                .FirstOrDefault(x => x.Id == restoId);
+
+            foreach (var schedule in resto.Schedules)
+            {
+                if (schedule.DayOfWeek == (int)arrivalDate.DayOfWeek)
+                {
+                    if (arrivalDate.TimeOfDay >= schedule.TimeOpen.TimeOfDay && arrivalDate.TimeOfDay <= schedule.TimeClosed.TimeOfDay)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public RestoDTO Update(RestoDTO obj)

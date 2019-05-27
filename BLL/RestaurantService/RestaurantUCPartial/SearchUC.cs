@@ -37,21 +37,18 @@ namespace BLL.RestaurantService
                     }
                 }
             }
-            //restos.ForEach(x => x.Schedules.Where(y => y.DayOfWeek == (int)searchdate.DayOfWeek));
-
-//            result.ForEach(x => x.Pictures = contextDB.Pictures
-//.Where(y => y.Restaurant.Id == x.Id && y.IsProfilePicture)
-//.Select(z => z.PictureToDTO())
-//.ToList());
-
-            //restos.Select(x => x.Schedules.Where(y => y.DayOfWeek == (int)searchdate.DayOfWeek))
-            //    .ToList();
             return result?.Select(x => x.DTOToDomain().ToBTO()).ToList() ?? new List<RestoBTO>();
         }
 
         public IEnumerable<RestoBTO> GetAllRestaurants()
         {
             var restos = restoRepository.GetAll();
+
+            return restos.Select(x => x.DTOToDomain().ToBTO());
+        }
+        public IEnumerable<RestoBTO> GetAllRestaurantsByCuisineId(int id)
+        {
+            var restos = restoRepository.GetAllByCuisineId(id);
 
             return restos.Select(x => x.DTOToDomain().ToBTO());
         }
@@ -74,6 +71,21 @@ namespace BLL.RestaurantService
                 return restos?.Select(x => x.DTOToDomain().ToBTO()) ?? new List<RestoBTO>();
             }
 
+        }
+
+        public bool IsOpen(int restoId, DateTime arrivalDate)
+        {
+            if (arrivalDate<DateTime.Now)
+            {
+                return false;
+            }
+            return restoRepository.RestaurantIsOpen(restoId, arrivalDate);
+
+            //return resto.DTOToDomain().ToBTO();
+        }
+        public string FindRestoMailByRestoId(int id)
+        {
+            return restoRepository.FindRestoMailByRestoId(id);
         }
     }
 }
