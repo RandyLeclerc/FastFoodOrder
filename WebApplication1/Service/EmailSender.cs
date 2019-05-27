@@ -25,9 +25,9 @@ namespace WebApplication1.Service
 
         public Task Execute(string apiKey, string subject, string message, string email)
         {
-            
             try
             {
+                string s = "";
                 var client = new SendGridClient(apiKey);
                 var msg = new SendGridMessage()
                 {
