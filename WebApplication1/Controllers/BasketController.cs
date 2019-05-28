@@ -136,7 +136,7 @@ namespace WebApplication1.Controllers
             int idResto = mealUC.GetRestoIdByMealId(MealId);
             if (mealBTO != null)
             {
-                /*BasketUC */basketUC = GetBasketUC();
+                basketUC = GetBasketUC();
                 basketUC.RemoveMeal(mealBTO);
                 if (basketUC.shoppingMeals.Count==0)
                 {
@@ -151,20 +151,6 @@ namespace WebApplication1.Controllers
 
             return RedirectToAction("RestaurantDetails", "Restaurant", new { id = idResto });
         }
-        //public IActionResult RemoveMealFromBasket(int MealId, string returnUrl)
-        //{
-        //    var mealBTO = mealUC.GetMealById(MealId);
-
-        //    if (mealBTO != null)
-        //    {
-        //        BasketUC basketUC = GetBasketUC();
-        //        basketUC.RemoveMeal(mealBTO);
-        //        SaveBasket(basketUC);
-        //    }
-        //    return Redirect(returnUrl);
-
-        //    //return RedirectToAction("Index", new { returnUrl });
-        //}
 
         //[Authorize(Roles = "RestaurantManager, Administrators")]
         [HttpPost]
@@ -172,8 +158,7 @@ namespace WebApplication1.Controllers
         {
             basketUC = GetBasketUC();
 
-            //BasketUC basketUC = viewModel.basketUC;
-            //int idToReturn = basketBTO.MealType.Id;
+
             if (basketUC.shoppingMeals.Count() == 0)
             {
                 return RedirectToAction("Error", new { errorMessage = "Sorry, your basket is empty..." });
@@ -203,10 +188,9 @@ namespace WebApplication1.Controllers
             {
                 return RedirectToAction("Error", new { errorMessage = "We can't add this basket, please contact support" });
             }
-            //??
-            _emailSender.SendEmailAsync(restoUC.FindRestoMailByRestoId(basketUC.restoId), 
-                "You have a new order", 
-                "See your orders by clicking here");
+            //_emailSender.SendEmailAsync(restoUC.FindRestoMailByRestoId(basketUC.restoId), 
+            //    "You have a new order", 
+            //    "See your orders by clicking here");
             return View(result);
         }
 
