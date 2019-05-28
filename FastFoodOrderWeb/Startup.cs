@@ -50,7 +50,7 @@ namespace WebApplication1
 
             services.AddDbContext<DAL.Data.ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("Azure")));
 
             //services.AddDbContext<RestaurantContextDB>(options =>
             //    options.UseSqlServer(
