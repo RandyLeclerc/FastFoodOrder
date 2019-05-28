@@ -6,19 +6,15 @@
 
 <h1>All Pictures</h1>
 
-@*<p>
-        <a asp-action="Create">Add a new for a restaurant</a>
-    </p>*@
+
 @if (!Model.Any())
 {
     <tr><td colspan="3" class="text-center">No picture found</td></tr>
 }
 else
 {
-
-
-    <table class="table">
-        <thead>
+    <table class="table table-condensed table-bordered">
+        <thead class="thead-dark">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Id)
@@ -46,7 +42,7 @@ else
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    <img src="@Html.DisplayFor(modelItem => item.Url)" class="img-thumbnail" alt="" />
+                    <img src="@Html.DisplayFor(modelItem => item.Url)" class="img-thumbnail" alt="" style="width:640px;height:360px"/>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsProfilePicture)

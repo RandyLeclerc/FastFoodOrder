@@ -14,6 +14,7 @@ using WebApplication1.Infrastructure.Extensions;
 using WebApplication1.ViewModel;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
@@ -152,7 +153,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("RestaurantDetails", "Restaurant", new { id = idResto });
         }
 
-        //[Authorize(Roles = "RestaurantManager, Administrators")]
+        //[Authorize]
         [HttpPost]
         public IActionResult CreateBasket(DateTime arrivalDate)
         {
@@ -171,9 +172,12 @@ namespace WebApplication1.Controllers
             basketBTO.ShoppingMeals = basketUC.shoppingMeals
                 .Select(x => x.ShoppingMealDomainToBTO())
                 .ToList();
-            basketBTO.UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            
+            basketBTO.UserId = User.FindFirst(ClaimTypes.NameIdentifier )?.Value ?? null;
+
             if (basketBTO.UserId == null)
                 return RedirectToAction("Error", new { errorMessage = "You have to be logged to complete your order" });
+
             if (!restoUC.IsOpen(basketUC.restoId, basketBTO.ArrivalDate))
             {
                 return RedirectToAction("Error", new { errorMessage = "The restaurant will be closed at this hour" });
@@ -188,9 +192,9 @@ namespace WebApplication1.Controllers
             {
                 return RedirectToAction("Error", new { errorMessage = "We can't add this basket, please contact support" });
             }
-            //_emailSender.SendEmailAsync(restoUC.FindRestoMailByRestoId(basketUC.restoId), 
-            //    "You have a new order", 
-            //    "See your orders by clicking here");
+            _emailSender.SendEmailAsync(restoUC.FindRestoMailByRestoId(basketUC.restoId),
+                "You have a new order",
+                "See your orders by clicking here");
             return View(result);
         }
 

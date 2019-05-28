@@ -8,36 +8,33 @@
 <p>
     <a class="btn btn-sm btn-primary" asp-action="CreateRestaurant">Create New</a>
 </p>
-<table class="tabletable-condensed table-bordered">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserManagerId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShortDescription)
-        </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.LongDescription)
-            </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Cuisines)
-        </th>
-        <th>
-            Actions
-        </th>
-    </tr>
+<table class="table table-condensed table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserManagerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShortDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cuisines)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+
     @*<tbody>*@
     @foreach (var item in Model)
     {

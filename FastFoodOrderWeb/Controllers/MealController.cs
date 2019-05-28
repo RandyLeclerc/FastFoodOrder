@@ -22,7 +22,10 @@ namespace WebApplication1.Controllers
         public IActionResult GetAllMealsByMealTypeId(int Id)
         {
             var result = mealUC.GetAllMealsByMealTypeId(Id);
-            ViewData["MealTypeId"] = Id;
+            int restoId = mealUC.GetRestoIdByMealId(result.Last().Id);
+            //ViewData["MealTypeId"] = Id;
+            //int i = result.Last().MealType.RestaurantId;
+            ViewData["RestoId"] = restoId;
             if (result != null || result.ToList().Count == 0) return View(result);
             else return RedirectToAction("Error", 
                 new { errorMessage = "Sorry! There is any meal in our database" });

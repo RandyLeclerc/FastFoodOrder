@@ -1,9 +1,9 @@
 ﻿@model List<Shared.BTO.BasketBTO>
 
 @{
-    ViewData["Title"] = "GetBasketsByRestoId";
+    ViewData["Title"] = "Orders for your restaurant :";
 }
-<h1>Your orders : </h1>
+<h1>Orders for your restaurant :</h1>
 
 <ul class="list-group">
     @foreach (var basket in Model)
@@ -39,12 +39,8 @@
             </thead>
             @foreach (var shoppingMeal in basket.ShoppingMeals)
             {
-
-
-
                 <tbody>
-                    @*@foreach (var item in shoppingMeal)
-                    {*@
+
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => shoppingMeal.Meal.MealType.Name)
@@ -53,9 +49,6 @@
                             @Html.DisplayFor(modelItem => shoppingMeal.Meal.Name)
                         </td>
                         <td>
-                            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
                             @Html.DisplayFor(modelItem => shoppingMeal.Quantity)
                         </td>
                     </tr>

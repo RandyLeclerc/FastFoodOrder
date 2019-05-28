@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<Shared.BTO.MealBTO>
 
 @{
-    ViewData["Title"] = "GetAllMealsByMealTypeId";
+    ViewData["Title"] = "Meal(s) for this Meal Type :";
 }
 
-<h1>GetAllMealsByMealTypeId</h1>
+    <h1>Meal(s) for this Meal Type :</h1>
 
 <p>
     <a class="btn btn-sm btn-primary" asp-action="CreateMeal" asp-route-id="@ViewData["MealTypeId"]">Create New</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-responsive table-sm table-bordered">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -63,5 +63,5 @@
     </tbody>
 </table>
 <div>
-    <a class="btn btn-sm btn-secondary" asp-controller="MealType" asp-action="EditMealType" asp-route-id="@ViewData["MealTypeId"]">Back to your meal type</a>
+    <a class="btn btn-sm btn-secondary" asp-controller="MealType" asp-action="GetAllMealTypesByRestoId" asp-route-id="@ViewData["RestoId"]">Back to the list of your meal types</a>
 </div>

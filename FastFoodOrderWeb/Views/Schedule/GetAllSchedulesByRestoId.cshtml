@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<Shared.BTO.ScheduleBTO>
 
 @{
-    ViewData["Title"] = "GetAllSchedulesByRestoId";
+    ViewData["Title"] = "Schedule of your restaurant : ";
 }
 
-<h1>GetAllSchedulesByRestoId</h1>
+<h1>Schedule of your restaurant : </h1>
 
 <p>
     <a class="btn btn-sm btn-primary" asp-action="CreateSchedule" asp-route-id="@ViewData["RestoId"]">Create New</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-sm table-bordered">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)

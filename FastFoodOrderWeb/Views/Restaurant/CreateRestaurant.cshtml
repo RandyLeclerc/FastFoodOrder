@@ -1,5 +1,4 @@
 ﻿@using System.Reflection
-@*@model Tuple<Shared.BTO.RestoBTO, Shared.BTO.PictureBTO>*@
 @model Shared.BTO.RestoBTO
 
 
@@ -15,15 +14,10 @@
 <hr />
 <div class="row">
     <div class="col-12">
-        @*<select name="weekDays" asp-items="Html.GetEnumSelectList<WeekDays>()"></select>*@
 
         <form asp-action="CreateRestaurant" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*<div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>*@
+
             @if (User.IsInRole("Administrators"))
             {
                 <div class="form-group">
@@ -64,7 +58,6 @@
                         @for (var i = 0; i < Model.Cuisines.Count(); i++)
                         {
                             <li>
-                                @*@Html.EditorFor(model => @Model.Cuisines[i])*@
                                 <input asp-for="@Model.Cuisines[i].Selected" checked="@Model.Cuisines[i].Selected" type="checkbox" />
                                 <label asp-for="@Model.Cuisines[i].Selected">@Model.Cuisines[i].Name</label>
                                 <input type="hidden" asp-for="@Model.Cuisines[i].Id" />
@@ -75,12 +68,12 @@
                     </ul>
                 </div>
             </fieldset>
-            <h5>Opening Hours : </h5>
+            @*<h5>Opening Hours : </h5>
             <div class="row">
                 <ul class="nav nav-pills nav-stacked flex-column col-3">
                     <li class="active">
                         <a data-toggle="pill" href="#monday" class="btn btn-primary btn-lg w-50">Monday</a>
-                        @*<span class="ques">Open ?</span>*@
+                        @*<span class="ques">Open ?</span>
                         <label class="switch">
                             <input type="checkbox" checked>
                             <span class="slider round"></span>
@@ -216,7 +209,7 @@
                         <p>Le dimanche</p>
                     </div>
                 </div>
-            </div>
+            </div>*@
             <div class="form-group">
                 <input type="submit" value="Create this restaurant" class="btn btn-primary" />
             </div>
