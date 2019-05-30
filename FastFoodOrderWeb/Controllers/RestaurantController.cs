@@ -65,7 +65,6 @@ namespace WebApplication1.Controllers
         {
             var restaurantUC = new RestaurantUC(restoRepository);
             var result = restaurantUC.GetRestaurantById(id);
-            //result.Basket = basketBTO;
             if (result != null) return View(result);
             else return RedirectToAction("Error", new { errorMessage = "Sorry! We don't find this restaurant" });
 

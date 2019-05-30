@@ -1,0 +1,16 @@
+﻿body {
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+.carousel-control-prev-icon {
+    background-image: url('https://cdn4.iconfinder.com/data/icons/game-interface-outline/100/objects-24-512.png')
+}
+
+.carousel-control-next-icon {
+    background-image: url('https://cdn4.iconfinder.com/data/icons/game-interface-outline/100/objects-25-512.png')
+}

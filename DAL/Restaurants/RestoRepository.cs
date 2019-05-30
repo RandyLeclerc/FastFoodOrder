@@ -48,12 +48,10 @@ namespace DAL.Restaurants
             }
         }
 
-        //???
-        //public IEnumerable<RestoDTO> Restos => contextDB.Restaurants.Select(x=>x.ToDTO());
+
 
         public IEnumerable<RestoDTO> FindByCity(string city)
         {
-            //return Restos.Where(x => x.City == city);
             return contextDB.Restaurants.Where(x => x.City == city).Select(x=>x.ToDTO());
         }
 
@@ -116,12 +114,13 @@ namespace DAL.Restaurants
         public RestoDTO GetById(int id)
         {
             var result =  contextDB.Restaurants
-                .Include(x=>x.UserManager)
-                .Include(x=>x.MealTypes)
+                .Include(um=>um.UserManager)
+                .Include(s=>s.Schedules)
+                .Include(mt=>mt.MealTypes)
                     .ThenInclude(y=>y.Meals)
-                .Include(x => x.RestaurantCuisines)
-                    .ThenInclude(y => y.Cuisine)
-                .FirstOrDefault(x => x.Id == id).ToDTO();
+                .Include(rc => rc.RestaurantCuisines)
+                    .ThenInclude(c => c.Cuisine)
+                .FirstOrDefault(i => i.Id == id).ToDTO();
             result.Pictures = contextDB.Pictures?.Where(x => x.Restaurant.Id == result.Id).Select(x => x.PictureToDTO()).ToList() ?? null;
             return result;
         }

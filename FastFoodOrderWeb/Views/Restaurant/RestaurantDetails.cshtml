@@ -4,43 +4,45 @@
     ViewData["Title"] = "RestaurantDetails";
 }
 
+<link rel="stylesheet" href="~/css/carousel.css" />
 <h3>@Html.DisplayFor(model => model.Name)</h3>
+<div class="col-sm-12">
 
+    <div id="demo" class="carousel slide" data-ride="carousel">
+        <ul class="carousel-indicators">
+            @for (int j = 0; j < Model.Pictures.Count; j++)
+            {
+                <li data-target="#demo" data-slide-to="@j">
+                </li>
+            }
+
+        </ul>
+
+
+        <div class="carousel-inner">
+            @{int i = 0;}
+
+            @foreach (var picture in Model.Pictures)
+            {
+                i++;
+                var active = i == 1 ? "active" : "";
+                <div class="carousel-item @active">
+                    <img class="mx-auto d-block" src="@Html.DisplayFor(x => picture.Url)" alt="" style="width:640px;height:360px" />
+                </div>
+            }
+        </div>
+        <a class="carousel-control-prev" href="#demo" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" role="button" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+</div>
 <div>
     <hr />
     <dl class="row">
 
-        <dt class="col-sm-2">
-            @*@Html.DisplayNameFor(model => model.Pictures)*@
-        </dt>
-        <dd class="col-sm-10">
-
-            <div id="demo" class="carousel slide" data-ride="carousel">
-                <ul class="carousel-indicators">
-                    <li data-target="#demo" data-slide-to="0" class="active"></li>
-                    <li data-target="#demo" data-slide-to="1"></li>
-                    <li data-target="#demo" data-slide-to="2"></li>
-                </ul>
-                <div class="carousel-inner" role="listbox">
-                    @{int i = 0;}
-
-                    @foreach (var picture in Model.Pictures)
-                    {
-                        i++;
-                        var active = i == 1 ? "active" : "";
-                        <div class="carousel-item @active">
-                            <img class="img-fluid" src="@Html.DisplayFor(x => picture.Url)" alt="" style="width:640px;height:360px" />
-                        </div>
-                    }
-                </div>
-                <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </a>
-                <a class="carousel-control-next" href="#demo" data-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </a>
-            </div>
-        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ShortDescription)
         </dt>
@@ -68,66 +70,111 @@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Cuisines)
         </dt>
+
         <dd class="col-sm-10">
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 
                 <div class="btn-group mr-2" role="group">
                     @foreach (var cuisine in Model.Cuisines.ToList())
                     {
-                        @*<div class="card-link">*@
                         <a class="btn btn-secondary" asp-action="GetRestaurantByCuisine" asp-route-id="@cuisine.Id">
                             @cuisine.Name
                         </a>
-                        @*</div>*@
                     }
                 </div>
             </div>
-            @*<ul class="list-group">
-                @foreach (var cuisine in Model.Cuisines.ToList())
-                {
-                    <li class="list-group-item">
-                        @Html.DisplayFor(modelItem => cuisine.Name)
-                    </li>
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Schedules)
+        </dt>
+        <dd class="col-sm-10">
+            <div class="border">
+                @{
+                    var daysOfWeek = Enum.GetValues(typeof(DayOfWeek))
+                                            .OfType<DayOfWeek>()
+                                            .OrderBy(day => day < DayOfWeek.Monday);
                 }
-            </ul>*@
+                <ul class="nav nav-pills mb-3">
+
+                    @*<ul class="nav nav-pills nav-stacked flex-column col-3">*@
+                    @foreach (var day in daysOfWeek)
+                    {
+
+                        @*<li>
+                                <a data-toggle="pill" href="#@day" class="btn btn-primary btn-lg w-50">
+                                    @day
+                                </a>
+                            </li>*@
+                        <li class="nav-item">
+                            <a data-toggle="pill" href="#@day" class="nav-link">
+                                @day
+                            </a>
+                        </li>
+
+                    }
+                </ul>
+
+                <div class="tab-content col-9">
+                    @foreach (var day in daysOfWeek)
+                    {
+                        <div id="@day" class="tab-pane fade">
+                            <h3>@day</h3>
+                            @foreach (var schedule in Model.Schedules)
+                            {
+                                if (day == (DayOfWeek)schedule.WeekDay)
+                                {
+                                    <p>@schedule.TimeOpen.TimeOfDay ,  @schedule.TimeClosed.TimeOfDay</p>
+                                }
+                            }
+                        </div>
+                    }
+
+                </div>
+
+            </div>
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MealTypes)
         </dt>
         <dd class="col-sm-10">
-            <ul class="list-group">
-                @foreach (var mealType in Model.MealTypes.ToList())
-                {
-                    <li class="list-group-item">
-                        <h5>
-                            @Html.DisplayFor(modelItem => mealType.Name)
-                        </h5>
-                        @foreach (var meal in mealType.Meals)
-                        {
-                        <div class="list-group-item">
-                            <h6>@Html.DisplayFor(modelItem => meal.Name)</h6>
-                            <p>@Html.DisplayFor(modelItem => meal.Description)</p>
-                            <span>@Html.DisplayFor(modelItem => meal.Price)</span>
+            <div class="row">
+                <ul class="nav nav-pills nav-stacked flex-column col-3">
+                    @foreach (var mealType in Model.MealTypes.ToList())
+                    {
+                        <li class="nav-item">
+                            <a data-toggle="pill" href="#@mealType.Name.Replace(" ", "")" class="nav-link">
+                                @mealType.Name
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <div class="tab-content col-9">
+                    @foreach (var mealType in Model.MealTypes.ToList())
+                    {
+                        <div id="@mealType.Name.Replace(" ", "")" class="tab-pane fade">
+                            @foreach (var meal in mealType.Meals)
+                            {
+                                <div class="list-group-item">
+                                    <h6>@Html.DisplayFor(modelItem => meal.Name)</h6>
+                                    <p>@Html.DisplayFor(modelItem => meal.Description)</p>
+                                    <span>@Html.DisplayFor(modelItem => meal.Price)</span>
 
-                            <form id="@meal.Id" asp-action="AddMealToBasket" asp-controller="Basket" method="post">
-                                <input type="hidden" name="MealId" value="@meal.Id" @*asp-for="@meal.Id"*@ />
-                                <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-                                <span class="card-text p-1">
-                                    @*@Model.Description*@
-                                    <button type="submit"class="btn btn-success btn-sm pull-right" style="float:right">
-                                        Add To Cart
-                                    </button>
-                                </span>
-                            </form>
-
+                                    <form id="@meal.Id" asp-action="AddMealToBasket" asp-controller="Basket" method="post">
+                                        <input type="hidden" name="MealId" value="@meal.Id" />
+                                        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                                        <span class="card-text p-1">
+                                            <button type="submit" class="btn btn-success btn-sm pull-right" style="float:right">
+                                                Add To Cart
+                                            </button>
+                                        </span>
+                                    </form>
+                                </div>
+                            }
                         </div>
-
-
-
-                        }
-                    </li>
-                }
-            </ul>
+                    }
+                </div>
+            </div>
         </dd>
     </dl>
 </div>
