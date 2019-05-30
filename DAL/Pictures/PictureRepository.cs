@@ -16,6 +16,8 @@ namespace DAL.Pictures
         public PictureRepository(ApplicationDbContext ContextDB)
         {
             contextDB = ContextDB;
+
+            //Test
         }
 
         public PictureDTO Create(PictureDTO obj)
