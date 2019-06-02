@@ -58,6 +58,14 @@ namespace DAL.Schedules
                 .FirstOrDefault(x => x.Id == id).ScheduleToDTO();
         }
 
+        public List<ScheduleDTO> GetSchedulesByDayOfWeekAndRestoId(int id, DayOfWeek day)
+        {
+            return contextDB.Schedules
+                .Where(x => x.Resto.Id == id && x.DayOfWeek == (int)day)
+                .Select(x => x.ScheduleToDTO())
+                .ToList();
+        }
+
         public ScheduleDTO Update(ScheduleDTO obj)
         {
             var schedule = contextDB.Schedules.FirstOrDefault(x => x.Id == obj.Id);

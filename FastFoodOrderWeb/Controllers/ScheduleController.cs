@@ -51,7 +51,15 @@ namespace WebApplication1.Controllers
         {
             int idToReturn = scheduleBTO.Resto.Id;
 
+
             if (!ModelState.IsValid) return View(scheduleBTO);
+
+            if (scheduleBTO.TimeClosed.TimeOfDay <= scheduleBTO.TimeOpen.TimeOfDay)
+            {
+                ViewData["Error"] = "You can't do that : TimeClosed must be superior to TimeOpen";
+                return View(scheduleBTO);
+            }
+
             var result = scheduleUC.AddSchedule(scheduleBTO);
 
             if (result == null)
@@ -94,15 +102,23 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult EditSchedule(ScheduleBTO scheduleBto)
         {
+            int idToReturn = scheduleBto.RestoId;
             if (!ModelState.IsValid) return View(scheduleBto);
 
+            if (scheduleBto.TimeClosed.TimeOfDay <= scheduleBto.TimeOpen.TimeOfDay)
+            {
+                ViewData["Error"] = "You can't do that : TimeClosed must be superior to TimeOpen";
+                return View(scheduleBto);
+            }
+
+
             var result = scheduleUC.UpdateSchedule(scheduleBto);
-            int idToReturn = result.RestoId;
+
 
 
             if (result == null)
             {
-                return RedirectToAction("Error", new { errorMessage = "We can't update this picture, please contact support" });
+                return RedirectToAction("Error", new { errorMessage = "We can't update this schedule, please contact support" });
             }
             if (User.IsInRole("Administrators"))
             {

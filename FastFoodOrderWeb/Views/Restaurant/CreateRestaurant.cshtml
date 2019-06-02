@@ -14,7 +14,6 @@
 <hr />
 <div class="row">
     <div class="col-12">
-
         <form asp-action="CreateRestaurant" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -68,148 +67,7 @@
                     </ul>
                 </div>
             </fieldset>
-            @*<h5>Opening Hours : </h5>
-            <div class="row">
-                <ul class="nav nav-pills nav-stacked flex-column col-3">
-                    <li class="active">
-                        <a data-toggle="pill" href="#monday" class="btn btn-primary btn-lg w-50">Monday</a>
-                        @*<span class="ques">Open ?</span>
-                        <label class="switch">
-                            <input type="checkbox" checked>
-                            <span class="slider round"></span>
-                            <span class="absolute-no">Closed</span>
-                        </label>
-                    </li>
-                    <li>
-                        <a data-toggle="pill" href="#tuesday" class="btn btn-primary btn-lg w-50">Tuesday</a>
-                        <label class="switch">
-                            <input type="checkbox" checked>
-                            <span class="slider round"></span>
-                            <span class="absolute-no">Closed</span>
-                        </label>
-                    </li>
-                    <li>
-                        <a data-toggle="pill" href="#wednesday" class="btn btn-primary btn-lg w-50">Wednesday</a>
-                        <label class="switch">
-                            <input type="checkbox" checked>
-                            <span class="slider round"></span>
-                            <span class="absolute-no">Closed</span>
-                        </label>
-                    </li>
-                    <li>
-                        <a data-toggle="pill" href="#thursday" class="btn btn-primary btn-lg w-50">Thursday</a>
-                        <label class="switch">
-                            <input type="checkbox" checked>
-                            <span class="slider round"></span>
-                            <span class="absolute-no">Closed</span>
-                        </label>
-                    </li>
-                    <li>
-                        <a data-toggle="pill" href="#friday" class="btn btn-primary btn-lg w-50">Friday</a>
-                        <label class="switch">
-                            <input type="checkbox" checked>
-                            <span class="slider round"></span>
-                            <span class="absolute-no">Closed</span>
-                        </label>
-                    </li>
-                    <li>
-                        <a data-toggle="pill" href="#saturday" class="btn btn-primary btn-lg w-50">Saturday</a>
-                        <label class="switch">
-                            <input type="checkbox" checked>
-                            <span class="slider round"></span>
-                            <span class="absolute-no">Closed</span>
-                        </label>
-                    </li>
-                    <li>
-                        <a data-toggle="pill" href="#sunday" class="btn btn-primary btn-lg w-50">Sunday</a>
-                        <label class="switch">
-                            <input type="checkbox" checked>
-                            <span class="slider round"></span>
-                            <span class="absolute-no">Closed</span>
-                        </label>
-                    </li>
-                </ul>
-
-                <div class="tab-content col-9">
-                    <div id="monday" class="tab-pane fade in active">
-                        <h3>Monday</h3>
-                        <table>
-                            <tr>
-                                <th>
-                                    First Service
-                                </th>
-                                <th>
-                                    Second Service
-                                </th>
-                                <th>
-                                    Third Service
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div>
-                                        Opening hours
-                                    </div>
-                                    <input type="time" />
-
-                                    <div>
-                                        Closing hours
-                                    </div>
-                                    <input type="time" />
-
-                                </td>
-                                <td>
-                                    <div>
-                                        Opening hours
-                                    </div>
-                                    <input type="time" />
-
-                                    <div>
-                                        Closing hours
-                                    </div>
-                                    <input type="time" />
-
-                                </td>
-                                <td>
-                                    <div>
-                                        Opening hours
-                                    </div>
-                                    <input type="time" />
-
-                                    <div>
-                                        Closing hours
-                                    </div>
-                                    <input type="time" />
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="tuesday" class="tab-pane fade">
-                        <h3>Tuesday</h3>
-                        <p>Le mardi</p>
-                    </div>
-                    <div id="wednesday" class="tab-pane fade">
-                        <h3>Wednesday</h3>
-                        <p>Le mercredi</p>
-                    </div>
-                    <div id="thursday" class="tab-pane fade">
-                        <h3>Thursday</h3>
-                        <p>Le jeudi</p>
-                    </div>
-                    <div id="friday" class="tab-pane fade">
-                        <h3>Friday</h3>
-                        <p>Le vendredi</p>
-                    </div>
-                    <div id="saturday" class="tab-pane fade">
-                        <h3>Saturday</h3>
-                        <p>Le samedi</p>
-                    </div>
-                    <div id="sunday" class="tab-pane fade">
-                        <h3>Sunday</h3>
-                        <p>Le dimanche</p>
-                    </div>
-                </div>
-            </div>*@
+            
             <div class="form-group">
                 <input type="submit" value="Create this restaurant" class="btn btn-primary" />
             </div>
@@ -227,31 +85,5 @@
         <a class="btn btn-sm btn-secondary" asp-action="GetRestaurantsByRestaurantManager">Back to List</a>
     }
 </div>
-
-@*<script type="text/javascript">
-    $(function () {
-        $('#datetimepicker3').datetimepicker({
-            format: 'LT'
-        });
-    });
-</script>*@
-
-@*//$(document).ready(function () {
-    //    $.each("a[data-toggle = pill]").click(function () {
-
-
-    //        //$(active).css("background-color", "white");
-    //        //$(this).css("background-color", "red");
-
-
-
-    //        //var self = $(this).parent();
-
-    //        //self.toggleClass();
-    //        //self.children().toggleClass();
-    //        //self.next().toggle();
-    //    })
-    //});*@
-
 
 

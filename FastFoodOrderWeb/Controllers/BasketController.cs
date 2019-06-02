@@ -30,8 +30,8 @@ namespace WebApplication1.Controllers
         private List<ShoppingMealBTO> ShoppingMeals { get; set; }
         public BasketUC basketUC;
 
-        public BasketController(IBasketRepository BasketRepository, 
-            IMealRepository MealRepository, 
+        public BasketController(IBasketRepository BasketRepository,
+            IMealRepository MealRepository,
             IMealTypeRepository MealTypeRepository,
             IRestoRepository RestoRepository, IEmailSender emailSender)
         {
@@ -55,64 +55,32 @@ namespace WebApplication1.Controllers
             };
             return View(result);
 
-            //return View(basketUC);
         }
-        //public IActionResult GetAllBaskets()
-        //{
-        //    var result = basketUC.GetAllBaskets();
-        //    if (result != null || result.ToList().Count == 0) return View(result);
-        //    else return RedirectToAction("Error", new { errorMessage = "Sorry! There is any basket in our database" });
 
-        //}
         public IActionResult Error(string errorMessage)
         {
             ViewData["Message"] = errorMessage;
 
             return View();
         }
-        //public IActionResult GetBasketById(int id)
-        //{
-        //    var result = basketUC.GetBasketById(id);
-        //    if (result != null) return View(result);
-        //    else return RedirectToAction("Error", new { errorMessage = "Sorry! We don't find this Meal" });
-        //}
+
         public PartialViewResult Summary(BasketBTO basket)
         {
             return PartialView(basket);
         }
 
-        //[Authorize(Roles = "Administrators")]
-        //[HttpGet]
-        //public IActionResult CreateBasket(int RestoId, int MealId)
-        //{
-        //    var mealBTO = mealUC.GetMealById(MealId);
-
-        //    if (mealBTO != null)
-        //    {
-        //        GetBasketUC().AddMealToBasket(mealBTO, 1);
-        //    }
-
-        //    var result = new BasketBTO();
-        //    result.ShoppingMeals = GetBasketUC().shoppingMeals
-        //        .Select(x => x.ShoppingMealDomainToBTO())
-        //        .ToList();
-        //    result.UserId = "something";
-        //    //var basketBTO = new BasketBTO();
-        //    //basketBTO.ShoppingMeals = ShoppingMeals;
-        //    //result.MealType = new MealTypeBTO { Id = Id };
-        //    //return PartialView(basketBTO);
-        //    return RedirectToAction("RestaurantDetails", "Restaurant", new { id = RestoId , basketBTO = result, test  = "un petit test"});
-        //}
+        
         public IActionResult AddMealToBasket(int MealId, string returnUrl)
         {
             var mealBTO = mealUC.GetMealById(MealId);
             var restoId = mealUC.GetRestoIdByMealId(MealId);
             if (mealBTO != null)
             {
-                /*BasketUC */basketUC = GetBasketUC();
-                if(basketUC.restoId == 0)
+                /*BasketUC */
+                basketUC = GetBasketUC();
+                if (basketUC.restoId == 0)
                 {
-                        basketUC.restoId = restoId;
+                    basketUC.restoId = restoId;
                 }
                 else if (basketUC.restoId != restoId)
                 {
@@ -123,7 +91,6 @@ namespace WebApplication1.Controllers
             }
             return Redirect(returnUrl);
 
-            //return RedirectToAction("Index", new { returnUrl });
         }
 
         private void SaveBasket(BasketUC basketUC)
@@ -139,7 +106,7 @@ namespace WebApplication1.Controllers
             {
                 basketUC = GetBasketUC();
                 basketUC.RemoveMeal(mealBTO);
-                if (basketUC.shoppingMeals.Count==0)
+                if (basketUC.shoppingMeals.Count == 0)
                 {
                     basketUC.restoId = 0;
                     SaveBasket(basketUC);
@@ -172,8 +139,8 @@ namespace WebApplication1.Controllers
             basketBTO.ShoppingMeals = basketUC.shoppingMeals
                 .Select(x => x.ShoppingMealDomainToBTO())
                 .ToList();
-            
-            basketBTO.UserId = User.FindFirst(ClaimTypes.NameIdentifier )?.Value ?? null;
+
+            basketBTO.UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? null;
 
             if (basketBTO.UserId == null)
                 return RedirectToAction("Error", new { errorMessage = "You have to be logged to complete your order" });
@@ -184,7 +151,7 @@ namespace WebApplication1.Controllers
             }
             var result = basketUC.AddBasket(basketBTO);
             basketUC.ClearShoppingMeals();
-            if (basketUC.shoppingMeals.Count==0)
+            if (basketUC.shoppingMeals.Count == 0)
             {
                 HttpContext.Session.Clear();
             }
@@ -192,9 +159,14 @@ namespace WebApplication1.Controllers
             {
                 return RedirectToAction("Error", new { errorMessage = "We can't add this basket, please contact support" });
             }
-            _emailSender.SendEmailAsync(restoUC.FindRestoMailByRestoId(basketUC.restoId),
-                "You have a new order",
-                "See your orders by clicking here");
+            string email = restoUC.FindRestoMailByRestoId(basketUC.restoId);
+            if (!String.IsNullOrEmpty(email))
+            {
+                _emailSender.SendEmailAsync(email,
+                            "You have a new order",
+                            "See your orders by clicking here");
+            }
+
             return View(result);
         }
 
@@ -236,14 +208,12 @@ namespace WebApplication1.Controllers
             if (!ModelState.IsValid) return View(basketBTO);
 
             var result = GetBasketUC().UpdateBasket(basketBTO);
-            //int idToReturn = result.MealTypeID;
 
             if (result == null)
             {
                 return RedirectToAction("Error", new { errorMessage = "We can't update this meal, please contact support" });
             }
-            //return RedirectToAction("GetAllMealsByMealTypeId", new { Id = idToReturn });
-            //??
+
             return View(result);
         }
 
@@ -254,8 +224,7 @@ namespace WebApplication1.Controllers
             result.restoId = basketUC.restoId;
             result.shoppingMeals = basketUC.shoppingMeals;
             result.ArrivalDate = basketUC.ArrivalDate;
-            //BasketBTO basket = HttpContext.Session.GetJson<BasketBTO>("BasketUC") ?? new BasketBTO();
-            //BasketUC basketUC = new BasketUC(basketRepository, basketSession);
+           
             return result;
         }
 

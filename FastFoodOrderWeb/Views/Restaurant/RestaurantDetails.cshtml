@@ -17,8 +17,6 @@
             }
 
         </ul>
-
-
         <div class="carousel-inner">
             @{int i = 0;}
 
@@ -96,16 +94,8 @@
                                             .OrderBy(day => day < DayOfWeek.Monday);
                 }
                 <ul class="nav nav-pills mb-3">
-
-                    @*<ul class="nav nav-pills nav-stacked flex-column col-3">*@
                     @foreach (var day in daysOfWeek)
                     {
-
-                        @*<li>
-                                <a data-toggle="pill" href="#@day" class="btn btn-primary btn-lg w-50">
-                                    @day
-                                </a>
-                            </li>*@
                         <li class="nav-item">
                             <a data-toggle="pill" href="#@day" class="nav-link">
                                 @day
@@ -129,9 +119,7 @@
                             }
                         </div>
                     }
-
                 </div>
-
             </div>
         </dd>
         <dt class="col-sm-2">

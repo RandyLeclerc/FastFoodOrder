@@ -20,7 +20,6 @@ namespace BLL.ShoppingService
             var basket = basketRepository.GetById(id);
             return basket.DTOToBasketDomain().BasketDomainToBTO();
         }
-
         public ICollection<BasketBTO> GetBasketsByUserId(string UserId)
         {
             var baskets = basketRepository.GetBasketsByUserId(UserId);
@@ -33,11 +32,5 @@ namespace BLL.ShoppingService
             var result = baskets.Select(x => x.DTOToBasketDomain().BasketDomainToBTO()).ToList();
             return result;
         }
-
-
-
-
-
-
     }
 }

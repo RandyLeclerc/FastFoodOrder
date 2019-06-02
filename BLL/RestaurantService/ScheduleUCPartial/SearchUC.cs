@@ -9,13 +9,11 @@ namespace BLL.RestaurantService
 {
     public partial class ScheduleUC
     {
-
         public ScheduleBTO GetScheduleById(int id)
         {
             var schedule = scheduleRepository.GetById(id);
             return schedule.DTOToScheduleDomain().ScheduleToBTO();
         }
-
         public ICollection<ScheduleBTO> GetAllSchedulesByRestaurantId(int id)
         {
             var schedules = scheduleRepository.GetAllSchedulesByRestoId(id);

@@ -15,7 +15,7 @@ namespace BLL.Tests
     {
 
         [TestMethod]
-        public void GetAllShoppingMeals_Should_Return_Should_Return_Proper_Collection()
+        public void GetAllShoppingMeals_Should_Return_Proper_Collection()
         {
             //Arrange
             var mock = new Mock<IShoppingMealRepository>();

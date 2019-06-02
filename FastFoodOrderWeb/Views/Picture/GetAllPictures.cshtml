@@ -17,16 +17,12 @@ else
         <thead class="thead-dark">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Url)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.IsProfilePicture)
                 </th>
                 <th>
-                    @*@Html.DisplayNameFor(model => model.Resto.Id)*@
                     Resto Id : 
                 </th>
                 <th>
@@ -38,9 +34,6 @@ else
             @foreach (var item in Model)
             {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
                 <td>
                     <img src="@Html.DisplayFor(modelItem => item.Url)" class="img-thumbnail" alt="" style="width:640px;height:360px"/>
                 </td>
@@ -54,7 +47,6 @@ else
                 </td>
                 <td>
                     <form asp-action="DeletePicture" asp-route-id="@item.Id" method="post">
-                        @*<a class="btn btn-sm btn-primary" asp-action="PictureDetails" asp-route-id="@item.Id">See the details</a>*@
                         <a class="btn btn-sm btn-primary" asp-action="EditPicture" asp-route-id="@item.Id">Edit</a>
                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Do you really want to delete this picture?');">
                             Delete

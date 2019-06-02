@@ -19,7 +19,6 @@ namespace DAL.Extensions
                     RestaurantId = mealType.RestaurantId,
                     Meals = mealType.Meals?.Select(x => x.MealToDTO()).ToList() ?? null
                     //Restaurant = mealType.Restaurant.ToDTO()
-                    //Resto = picture.Restaurant.ToDTO()
                 };
             else return null;
         }

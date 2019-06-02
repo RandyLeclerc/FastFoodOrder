@@ -15,7 +15,6 @@ namespace BLL.ShoppingService
         public DateTime ArrivalDate { get; set; }
         public BasketUC(IBasketRepository BasketRepository)
         {
-            //shoppingMeals = BasketBTO.ShoppingMeals;
             basketRepository = BasketRepository;
             shoppingMeals = new List<ShoppingMealDomain>();
         }

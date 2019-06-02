@@ -8,11 +8,6 @@
     DateTime ArrivalDate = DateTime.Now.Date;
 }
 <div class="text-center">
-    @*<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>*@
-    @*<form asp-action="CreateBasket" method="post" >
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-    @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -29,7 +24,6 @@
 
                     <td class="text-center">@meal.Quantity</td>
                     <td class="text-left">@meal.Meal.Name</td>
-                    @*<td class="text-left">@Model.basketUC.restoId</td>*@
                     <td class="text-right">@meal.Meal.Price.ToString("c")</td>
                     <td class="text-right">
                         @((meal.Quantity * meal.Meal.Price).ToString("c"))
@@ -39,10 +33,6 @@
                         <form asp-action="RemoveMealFromBasket" method="post">
                             <input type="hidden" name="MealId"
                                    value="@meal.MealId" />
-                            @*<input type="hidden" name="returnUrl"
-                                value="@Model.ReturnUrl" />*@
-                            @*<input type="hidden" name="restoId"
-                                value="@meal.Meal." />*@
                             <button type="submit" class="btn btn-sm btn-danger ">
                                 Remove
                             </button>

@@ -16,7 +16,6 @@ namespace WebApplication1.ViewModel
         public string Email { get; set; }
 
         [Required]
-        //[EmailAddress]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 

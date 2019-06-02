@@ -32,12 +32,10 @@ namespace WebApplication1.Controllers
             pictureUC = new PictureUC(pictureRepository);
         }
 
-        //https://localhost:44397/Restaurant/GetAllRestaurants
         public IActionResult GetAllRestaurants()
         {
             var restaurantUC = new RestaurantUC(restoRepository);
             var result = restaurantUC.GetAllRestaurants();
-            //????
 
             if (result != null || result.ToList().Count == 0) return View(result);
             else
@@ -70,7 +68,6 @@ namespace WebApplication1.Controllers
 
         }
         //Get restaurant by city
-        //https://localhost:44397/Restaurant/GetRestaurantByCity/?city=Bruxelles
         public IActionResult GetRestaurantByCity(string city)
         {
             var restaurantUC = new RestaurantUC(restoRepository);

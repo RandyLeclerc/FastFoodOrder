@@ -4,7 +4,7 @@
     ViewData["Title"] = "Meal(s) for this Meal Type :";
 }
 
-    <h1>Meal(s) for this Meal Type :</h1>
+    <h1>Meal(s) for this meal type :</h1>
 
 <p>
     <a class="btn btn-sm btn-primary" asp-action="CreateMeal" asp-route-id="@ViewData["MealTypeId"]">Create New</a>
@@ -12,9 +12,6 @@
 <table class="table table-sm table-bordered">
     <thead class="thead-dark">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -25,9 +22,6 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MealTypeID)
-            </th>
-            <th>
                 Actions
             </th>
         </tr>
@@ -36,9 +30,6 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
@@ -46,9 +37,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MealTypeID)
             </td>
             <td>
                 <form asp-action="DeleteMeal" asp-route-id="@item.Id" method="post">

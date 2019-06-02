@@ -14,7 +14,7 @@ namespace BLL.Tests
     {
 
         [TestMethod]
-        public void GetAllCuisines_Should_Return_Should_Return_Proper_Collection()
+        public void GetAllCuisines_Should_Return_Proper_Collection()
         {
             //Arrange
             var mock = new Mock<ICuisineRepository>();
@@ -55,7 +55,7 @@ namespace BLL.Tests
 
         }
         [TestMethod]
-        public void GetCuisineById_Should_Return_Null_When_Not_Found()
+        public void GetCuisineById_Null_When_Not_Found()
         {
             //Arrange
             var mock = new Mock<ICuisineRepository>();
@@ -70,5 +70,6 @@ namespace BLL.Tests
             Assert.IsNull(result);
 
         }
+
     }
 }

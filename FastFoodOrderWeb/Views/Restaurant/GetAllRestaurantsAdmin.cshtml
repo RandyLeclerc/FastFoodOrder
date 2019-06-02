@@ -1,7 +1,5 @@
 ﻿@model IEnumerable<Shared.BTO.RestoBTO>
-@*@{
-        ViewData["Title"] = "GetRestaurantsByRestaurantManager";
-    }*@
+
 
 <h1>All the restaurants: </h1>
 
@@ -35,7 +33,6 @@
         </tr>
     </thead>
 
-    @*<tbody>*@
     @foreach (var item in Model)
     {
         <tr>
@@ -43,7 +40,6 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @*@UserManager.GetUserAsync(User).Result.FirstName*@
                 @Html.DisplayFor(modelItem => item.UserManager.FirstName)
             </td>
             <td>
@@ -52,15 +48,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ShortDescription)
             </td>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.LongDescription)
-                </td>*@
+
             <td>
                 @Html.DisplayFor(modelItem => item.City)
             </td>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.PhoneNumber)
-                </td>*@
+
             <td>
                 <ul class="list-group list-group-flush">
                     @foreach (var cuisine in item.Cuisines.ToList())
@@ -74,7 +66,6 @@
             </td>
             <td>
                 <form asp-action="DeleteRestaurant" asp-route-id="@item.Id" method="post">
-                    @*<a class="btn btn-sm btn-primary" asp-action="RestaurantDetails" asp-route-id="@item.Id">See the details</a>*@
                     <a class="btn btn-sm btn-primary" asp-action="EditRestaurant" asp-route-id="@item.Id">Edit</a>
                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Do you really want to delete this restaurant?');">
                         Delete
@@ -83,5 +74,4 @@
             </td>
         </tr>
     }
-    @*</tbody>*@
 </table>

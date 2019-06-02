@@ -30,8 +30,6 @@ namespace DAL.Restaurants
             resto.UserManager = contextDB.Users.FirstOrDefault(x => x.Id == resto.UserManagerId);
             resto.RestaurantCuisines.ToList().ForEach(x => contextDB.Attach(x.Cuisine));
             contextDB.Add(resto);
-            //resto.Pictures.
-            //contextDB.Pictures.Add(resto.Pictures)
             contextDB.SaveChanges();
             return resto.ToDTO();
         }
@@ -95,10 +93,6 @@ namespace DAL.Restaurants
             .Select(z => z.PictureToDTO())
             .ToList());
 
-            //restos.ForEach(x => x.Cuisines = contextDB.Cuisines
-            //        .Where(y => y.Id == id)
-            //        .Select(z => z.ToDTO())
-            //        .ToList());
             var result = new List<RestoDTO>();
             foreach (var item in restos)
             {
@@ -130,7 +124,7 @@ namespace DAL.Restaurants
             IEnumerable<RestoDTO> result = contextDB.Restaurants
                 .Include(x=>x.UserManager)
                 .Include(x=>x.RestaurantCuisines)
-                .ThenInclude(y=>y.Cuisine)
+                    .ThenInclude(y=>y.Cuisine)
                 .Where(x => x.UserManagerId == RestaurantManagerId )
                 .Select(x => x.ToDTO());
 
@@ -176,7 +170,7 @@ namespace DAL.Restaurants
                     contextDB.RestaurantCuisines.Remove(item);
 
                 }
-
+                // 1b - Remove In table Pictures the rows with this Restaurant
                 foreach (var item in contextDB.Pictures.Where(x => x.Restaurant == obj.ToRestaurant()))
                 {
                     contextDB.Pictures.Remove(item);
@@ -190,8 +184,6 @@ namespace DAL.Restaurants
                 resto.RestaurantCuisines.ToList().ForEach(x => contextDB.Attach<Cuisine>(x.Cuisine));
                 contextDB.SaveChanges();
                 return resto.ToDTO();
-
-
             }
         }
     }

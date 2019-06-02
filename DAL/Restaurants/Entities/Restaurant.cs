@@ -20,8 +20,8 @@ namespace DAL.Restaurants.Entities
         public string City { get; set; }
         public string PhoneNumber { get; set; }
         public virtual ICollection<RestaurantCuisine> RestaurantCuisines { get; set; }
-        public /*virtual*/ ICollection<Picture> Pictures { get; set; }
-        public /*virtual*/ ICollection<MealType> MealTypes { get; set; }
-        public /*virtual*/ ICollection<Schedule> Schedules { get; set; }
+        public ICollection<Picture> Pictures { get; set; }
+        public ICollection<MealType> MealTypes { get; set; }
+        public ICollection<Schedule> Schedules { get; set; }
     }
 }

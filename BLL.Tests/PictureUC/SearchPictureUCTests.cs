@@ -14,7 +14,7 @@ namespace BLL.Tests
     {
 
         [TestMethod]
-        public void GetAllPictures_Should_Return_Should_Return_Proper_Collection()
+        public void GetAllPictures_Should_Return_Proper_Collection()
         {
             //Arrange
             var mock = new Mock<IPictureRepository>();
@@ -90,6 +90,105 @@ namespace BLL.Tests
 
             //Act
             var result = target.GetPictureById(25);
+
+            //Assert
+            Assert.AreEqual(null, result);
+            Assert.IsNull(result);
+
+        }
+        [TestMethod]
+        public void GetAllPicturesByRestaurantId_Should_Return_Proper_Collection()
+        {
+            //Arrange
+            var mock = new Mock<IPictureRepository>();
+            var myPictures = new List<PictureDTO>
+            {
+                new PictureDTO
+                {
+                    Id = 1,
+                    IsProfilePicture = true,
+                    Resto = new RestoDTO(),
+                    Url = "www.myurl.com"
+                },
+                new PictureDTO
+                {
+                    Id = 2,
+                    IsProfilePicture = false,
+                    Resto = new RestoDTO(),
+                    Url = "www.myurl2.com"
+                }
+            };
+            mock.Setup(x => x.GetPicturesByRestoId(1)).Returns(myPictures);
+            PictureUC target = new PictureUC(mock.Object);
+
+            //Act
+            var result = target.GetAllPicturesByRestaurantId(1).ToList();
+
+            //Assert
+            Assert.AreEqual(result.Count, 2);
+            Assert.AreEqual(result[0].Id, 1);
+            Assert.AreEqual(result[1].Url, "www.myurl2.com");
+
+        }
+        [TestMethod]
+        public void GetAllPicturesByRestaurantId_Should_Return_New_List_When_Not_Found()
+        {
+            //Arrange
+            var mock = new Mock<IPictureRepository>();
+
+            mock.Setup(x => x.GetPicturesByRestoId(1)).Returns(new List<PictureDTO>());
+            PictureUC target = new PictureUC(mock.Object);
+
+            //Act
+            var result = target.GetAllPicturesByRestaurantId(1).ToList();
+
+            //Assert
+            Assert.AreEqual(result.Count, 0);
+
+        }
+        [TestMethod]
+        public void GetProfilePicture_Should_Return_Valid_Data()
+        {
+            //Arrange
+            var mock = new Mock<IPictureRepository>();
+            var myPicture = new PictureDTO
+            {
+                Id = 1,
+                IsProfilePicture = true,
+                Resto = new RestoDTO(),
+                Url = "www.myurl.com"
+            };
+
+            mock.Setup(x => x.GetProfilePictureByRestoId(1)).Returns(
+                    new PictureDTO
+                    {
+                        Id = 1,
+                        IsProfilePicture = true,
+                        Resto = new RestoDTO(),
+                        Url = "www.myurl.com"
+                    }
+            );
+
+            PictureUC target = new PictureUC(mock.Object);
+
+            //Act
+            var result = target.GetProfilePicture(1);
+
+            //Assert
+            Assert.AreEqual(result.Id, 1);
+            Assert.AreEqual(result.Url, "www.myurl.com");
+
+        }
+        [TestMethod]
+        public void GetProfilePicture_Should_Return_Null_When_Not_Found()
+        {
+            //Arrange
+            var mock = new Mock<IPictureRepository>();
+            mock.Setup(x => x.GetProfilePictureByRestoId(25));
+            PictureUC target = new PictureUC(mock.Object);
+
+            //Act
+            var result = target.GetProfilePicture(25);
 
             //Assert
             Assert.AreEqual(null, result);

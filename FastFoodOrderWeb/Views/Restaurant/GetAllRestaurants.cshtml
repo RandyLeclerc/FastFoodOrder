@@ -25,26 +25,12 @@
 else
 {
     <div class="card-columns">
-
-        @*<table class="table table-condensed table-bordered" header header-content="Restos by city">*@
-        @*<tr>
-                <th>Resto Name</th>
-                <th>Image</th>
-                <th>Description</th>
-                <th>City</th>
-                <th>Cuisines</th>
-                <th>Action</th>
-            </tr>*@
         @foreach (var item in Model)
         {
             <div class="card">
                 @foreach (var picture in item.Pictures)
                 {
-                    @*i++;
-                        var active = i == 1 ? "active" : "";
-                        <div class="carousel-item @active">*@
                     <img src="@Html.DisplayFor(x => picture.Url)" class="card-img-top" alt="" />
-                    @*</div>*@
                 }
                 <div class="card-body">
                     <h5 class="card-title">@item.Name</h5>
@@ -56,11 +42,9 @@ else
                             <div class="btn-group mr-2" role="group">
                                 @foreach (var cuisine in item.Cuisines.ToList())
                                 {
-                                    @*<div class="card-link">*@
                                         <a class="btn btn-secondary btn-sm" asp-action="GetRestaurantByCuisine" asp-route-id="@cuisine.Id">
                                             @cuisine.Name
                                         </a>
-                                    @*</div>*@
                                 }
                             </div>
                         </div>
@@ -73,7 +57,6 @@ else
                         </form>
                     </div>
                 </div>
-
             </div>
         }
     </div>

@@ -12,15 +12,15 @@ namespace Shared.BTO
         public int RestoId { get; set; }
 
         public RestoBTO Resto { get; set; }
-
+        [Display(Name = "Day of week")]
         public WeekDay WeekDay { get; set; }
-        //public int DayOfWeek { get; set; }
 
-
+        [Display(Name = "Opening hour")]
         [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Time)]
         public DateTime TimeOpen { get; set; }
 
+        [Display(Name = "Closure hour")]
         [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Time)]
         public DateTime TimeClosed { get; set; }

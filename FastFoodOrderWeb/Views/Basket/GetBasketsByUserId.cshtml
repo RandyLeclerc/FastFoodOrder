@@ -13,9 +13,7 @@
         <h2>
             Restaurant : @basket.ShoppingMeals.ToList()[0].Meal.MealType.Restaurant.Name
         </h2>
-        <h5>
-            Id order :  @basket.Id
-        </h5>
+
         <h5>
             Arrival date in restaurant :  @basket.ArrivalDate
         </h5>
@@ -35,12 +33,7 @@
             </thead>
             @foreach (var shoppingMeal in basket.ShoppingMeals)
             {
-
-
-
                 <tbody>
-                    @*@foreach (var item in shoppingMeal)
-                    {*@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => shoppingMeal.Meal.MealType.Name)
@@ -49,9 +42,6 @@
                             @Html.DisplayFor(modelItem => shoppingMeal.Meal.Name)
                         </td>
                         <td>
-                            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
                             @Html.DisplayFor(modelItem => shoppingMeal.Quantity)
                         </td>
                     </tr>

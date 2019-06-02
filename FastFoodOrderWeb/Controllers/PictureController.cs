@@ -64,7 +64,21 @@ namespace WebApplication1.Controllers
         {
             int idToReturn = pictureBTO.Resto.Id;
 
+            
             if (!ModelState.IsValid) return View(pictureBTO);
+
+            //Check if there is already a profile picture for this restaurant
+            if (pictureBTO.IsProfilePicture)
+            {
+                var profilePicture = pictureUC.GetProfilePicture(pictureBTO.Resto.Id);
+                if (profilePicture != null)
+                {
+                    ViewData["Error"] = "You can't do that : You already have a profile picture for your restaurant";
+                    return View(pictureBTO);
+                }
+            }
+
+
             var result = pictureUC.AddPicture(pictureBTO);
 
             if (result == null)
@@ -111,11 +125,21 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult EditPicture(PictureBTO pictureBto)
         {
+            int idToReturn = pictureBto.RestaurantId;
+
+            //Check if there is already a profile picture for this restaurant
             if (!ModelState.IsValid) return View(pictureBto);
+            if (pictureBto.IsProfilePicture)
+            {
+                var profilePicture = pictureUC.GetProfilePicture(pictureBto.RestaurantId);
+                if (profilePicture != null)
+                {
+                    ViewData["Error"] = "You can't do that : You already have a profile picture for your restaurant";
+                    return View(pictureBto);
+                }
+            }
 
             var result = pictureUC.UpdatePicture(pictureBto);
-            int idToReturn = result.RestaurantId;
-
 
             if (result == null)
             {

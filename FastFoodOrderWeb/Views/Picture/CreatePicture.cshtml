@@ -7,15 +7,21 @@
 <h1>Create a new Picture</h1>
 
 <hr />
+@if (ViewData["Error"]!=null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewData["Error"]
+    </div>
+}
+
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="CreatePicture">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-            @*<label asp-for="Id" class="control-label"></label>*@
-            <input asp-for="Id" class="form-control" value="0" hidden="hidden"/>
-            @*<span asp-validation-for="Id" class="text-danger"></span>*@
-        </div>
+                <input asp-for="Id" class="form-control" value="0" hidden="hidden" />
+            </div>
             <div class="form-group">
                 <label asp-for="Url" class="control-label"></label>
                 <input asp-for="Url" class="form-control" />
@@ -27,9 +33,7 @@
                 </label>
             </div>
             <div class="form-group">
-                @*<label asp-for="Resto.Id" class="control-label"></label>*@
-                <input asp-for="Resto.Id" class="form-control" hidden="hidden"/>
-                @*<span asp-validation-for="Resto.Id" class="text-danger"></span>*@
+                <input asp-for="Resto.Id" class="form-control" hidden="hidden" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create this picture" class="btn btn-primary" />

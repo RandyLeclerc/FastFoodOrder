@@ -9,15 +9,24 @@ namespace BLL.RestaurantService
 {
     public partial class ScheduleUC
     {
+        //TODO : unit test
         public ScheduleBTO AddSchedule(ScheduleBTO scheduleBto)
         {
             ScheduleDTO schedule = new ScheduleDTO();
             if (scheduleBto != null)
             {
-                schedule = scheduleRepository.Create(scheduleBto.BTOToScheduleDomain().ScheduleDomainToDTO());
-                return schedule.DTOToScheduleDomain().ScheduleToBTO();
+                var schedules = scheduleRepository.GetSchedulesByDayOfWeekAndRestoId(scheduleBto.Resto.Id, (DayOfWeek)scheduleBto.WeekDay);
+
+                if(ScheduleIsValid(scheduleBto, schedules))
+                {
+                    schedule = scheduleRepository.Create(scheduleBto.BTOToScheduleDomain().ScheduleDomainToDTO());
+                    return schedule.DTOToScheduleDomain().ScheduleToBTO();
+                }
+                return null;
             }
             return null;
         }
+
+
     }
 }

@@ -42,15 +42,11 @@ namespace DAL.Cuisines
         public IEnumerable<CuisineDTO> GetAll()
         {
             return contextDB.Cuisines
-                //.Include(x => x.RestaurantCuisines)
-                //.ThenInclude(y => y.Cuisine)
                 .Select(x => x.ToDTO());
         }
         public IEnumerable<CuisineDTO> GetAllByRestaurantId(int id)
         {
             return contextDB.RestaurantCuisines
-                //.Include(x => x.RestaurantCuisines)
-                //.ThenInclude(y => y.Cuisine)
                 .Where(x=>x.RestaurantId == id)
                 .Select(x => x.Cuisine.ToDTO());
         }

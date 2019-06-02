@@ -27,7 +27,7 @@ namespace BLL.RestaurantService
         {
             var meals = mealRepository.GetMealsByMealTypeId(id);
 
-            return meals.Select(x => x.DTOToMealDomain().MealDomainToBTO()).ToList();
+            return meals?.Select(x => x.DTOToMealDomain().MealDomainToBTO()).ToList() ?? null;
         }
 
         public int GetRestoIdByMealId(int id)
@@ -35,9 +35,5 @@ namespace BLL.RestaurantService
             var result = mealRepository.GetRestoIdByMealId(id);
             return result;
         }
-
-
-
-
     }
 }

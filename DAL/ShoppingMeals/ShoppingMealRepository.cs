@@ -21,7 +21,6 @@ namespace DAL.ShoppingMeals
         public ShoppingMealDTO Create(ShoppingMealDTO obj)
         {
             var shoppingMeal = obj.DtoToShoppingMeal();
-            //contextDB.Restaurants.First(x => x.Id == obj.Resto.Id);
             contextDB.ShoppingMeals.Add(shoppingMeal);
             contextDB.SaveChanges();
             return shoppingMeal.ShoppingMealToDTO();
@@ -42,15 +41,12 @@ namespace DAL.ShoppingMeals
         public IEnumerable<ShoppingMealDTO> GetAll()
         {
             return contextDB.ShoppingMeals
-                //.Include(x => x.Restaurant)
-                //.ThenInclude(y => y.Cuisine)
                 .Select(x => x.ShoppingMealToDTO());
         }
 
         public ShoppingMealDTO GetById(int id)
         {
             return contextDB.ShoppingMeals
-                //.Include(x => x.Restaurant)
                 .FirstOrDefault(x => x.Id == id).ShoppingMealToDTO();
         }
 

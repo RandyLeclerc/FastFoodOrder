@@ -11,8 +11,8 @@ namespace DAL.Pictures.Entities
         public int Id { get; set; }
         public string Url { get; set; }
         public bool IsProfilePicture { get; set; }
-        [Required]
 
+        [Required]
         public int RestaurantId { get; set; }
         public virtual Restaurant Restaurant { get; set; }
     }

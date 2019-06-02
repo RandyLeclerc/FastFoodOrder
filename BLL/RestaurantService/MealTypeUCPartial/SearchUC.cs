@@ -25,7 +25,7 @@ namespace BLL.RestaurantService
         {
             var mealTypes = mealTypeRepository.GetMealTypesByRestoId(id);
 
-            return mealTypes.Select(x=>x.DTOToMealTypeDomain().MealTypeDomainToBTO()).ToList();
+            return mealTypes?.Select(x=>x.DTOToMealTypeDomain().MealTypeDomainToBTO()).ToList() ?? null;
         }
 
 

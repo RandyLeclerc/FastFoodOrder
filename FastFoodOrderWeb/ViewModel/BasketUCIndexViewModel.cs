@@ -13,8 +13,7 @@ namespace WebApplication1.ViewModel
         public BasketUC basketUC { get; set; }
         public int restoId { get; set; }
         public string ReturnUrl { get; set; }
-        //[DisplayFormat(ApplyFormatInEditMode = true)]
-        //[DataType(DataType.DateTime)]
+
         public DateTime ArrivalDate { get; set; }
     }
 }

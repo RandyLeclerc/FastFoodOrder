@@ -9,7 +9,7 @@ namespace BLL.RestaurantService
     {
         private IRestoRepository restoRepository;
 
-        public RestaurantUC(IRestoRepository RestoRepository) /*: base()*/
+        public RestaurantUC(IRestoRepository RestoRepository)
         {
             restoRepository = RestoRepository;
         }

@@ -13,13 +13,7 @@ namespace Shared.DTO
         public RestoDTO Resto { get; set; }
 
         public int DayOfWeek { get; set; }
-
-        //[DataType(DataType.Time)]
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
         public DateTime TimeOpen { get; set; }
-
-        //[DataType(DataType.Time)]
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
         public DateTime TimeClosed { get; set; }
     }
 }

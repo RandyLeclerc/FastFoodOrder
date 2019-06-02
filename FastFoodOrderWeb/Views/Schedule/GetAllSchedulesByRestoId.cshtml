@@ -13,9 +13,6 @@
     <thead class="thead-dark">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.WeekDay)
             </th>
             <th>
@@ -32,9 +29,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.WeekDay)
             </td>
@@ -56,9 +50,7 @@
 }
     </tbody>
 </table>
-@*<div>
-    <a class="btn btn-sm btn-secondary" asp-controller="Restaurant" asp-action="EditRestaurant" asp-route-id="@ViewData["RestoId"]">Back to your restaurant</a>
-</div>*@
+
 <div>
     <a class="btn btn-sm btn-secondary" asp-controller="Restaurant" asp-action="GetRestaurantsByRestaurantManager" asp-route-id="@User.Identity">Back to your restaurant</a>
 </div>

@@ -49,12 +49,6 @@ namespace DAL.Extensions
                     Schedules = restoDTO.Schedules?.Select(x => x.DtoToSchedule()).ToList() ?? null
             };
 
-    //    public static ICollection<Picture> ToPicture(this RestoDTO restoDTO)
-    //=> restoDTO == null ? null : new Restaurant
-    //{
-
-    //};
-
         public static RestaurantCuisine ToRestaurantCuisines(this CuisineDTO cuisineDTO)
             => cuisineDTO==null ? null : new RestaurantCuisine
             {

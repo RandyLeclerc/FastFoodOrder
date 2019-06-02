@@ -42,8 +42,6 @@ namespace DAL.Pictures
         public IEnumerable<PictureDTO> GetAll()
         {
             return contextDB.Pictures
-                //.Include(x => x.Restaurant)
-                //.ThenInclude(y => y.Cuisine)
                 .Select(x => x.PictureToDTO());
         }
 
@@ -51,9 +49,6 @@ namespace DAL.Pictures
         {
             return contextDB.Pictures
                 .Include(x=>x.Restaurant)
-                //.Include(x => x.UserManager)
-                //.Include(x => x.RestaurantCuisines)
-                //.ThenInclude(y => y.Cuisine)
                 .FirstOrDefault(x => x.Id == id).PictureToDTO();
         }
 

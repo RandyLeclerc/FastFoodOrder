@@ -27,7 +27,6 @@ namespace BLL.RestaurantService
 
             return pictures.Select(x=>x.DTOToPictureDomain().PictureToBTO()).ToList();
         }
-
         public PictureBTO GetProfilePicture(int id)
         {
             return pictureRepository.GetProfilePictureByRestoId(id).DTOToPictureDomain().PictureToBTO();

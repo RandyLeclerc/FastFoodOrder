@@ -46,11 +46,12 @@ namespace BLL.RestaurantService
 
             return restos.Select(x => x.DTOToDomain().ToBTO());
         }
+
         public IEnumerable<RestoBTO> GetAllRestaurantsByCuisineId(int id)
         {
             var restos = restoRepository.GetAllByCuisineId(id);
 
-            return restos.Select(x => x.DTOToDomain().ToBTO());
+            return restos?.Select(x => x.DTOToDomain().ToBTO()) ?? new List<RestoBTO>();
         }
 
         public RestoBTO GetRestaurantById(int id)
@@ -66,7 +67,6 @@ namespace BLL.RestaurantService
             else
             {
                 var restos = restoRepository.GetRestaurantsByRestaurantManager(RestaurantManagerId);
-                //restos.Select(x=>x.Cuisines == repo)
 
                 return restos?.Select(x => x.DTOToDomain().ToBTO()) ?? new List<RestoBTO>();
             }
@@ -80,12 +80,12 @@ namespace BLL.RestaurantService
                 return false;
             }
             return restoRepository.RestaurantIsOpen(restoId, arrivalDate);
-
-            //return resto.DTOToDomain().ToBTO();
         }
+
         public string FindRestoMailByRestoId(int id)
         {
-            return restoRepository.FindRestoMailByRestoId(id);
+            string result = restoRepository.FindRestoMailByRestoId(id);
+            return result;
         }
     }
 }

@@ -52,18 +52,11 @@ namespace WebApplication1
                 options.UseSqlServer(
                     Configuration.GetConnectionString("Azure")));
 
-            //services.AddDbContext<RestaurantContextDB>(options =>
-            //    options.UseSqlServer(
-            //        Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
                 config.SignIn.RequireConfirmedEmail = true;
             })
-            //services.AddDefaultIdentity<ApplicationUser>(config =>
-            //{
-            //    config.SignIn.RequireConfirmedEmail = true;
-            //})
+
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -76,12 +69,7 @@ namespace WebApplication1
             services.AddTransient<IMealRepository, MealRepository>();
             services.AddTransient<IBasketRepository, BasketRepository>();
             services.AddTransient<IScheduleRepository, ScheduleRepository>();
-
-
-
-            // requires
-            // using Microsoft.AspNetCore.Identity.UI.Services;
-            // using WebPWrecover.Services;
+            //EmailSender : 
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
