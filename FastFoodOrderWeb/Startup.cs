@@ -50,7 +50,7 @@ namespace WebApplication1
 
             services.AddDbContext<DAL.Data.ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("Azure")));
+                    Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
